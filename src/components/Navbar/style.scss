@@ -1,0 +1,24 @@
+.navbar {
+  padding: 12px;
+  background-color: $white;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px $gray-500 solid;
+
+  .user-profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .avatar {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: black;
+  }
+  .username {
+    font-size: 12px;
+    font-weight: 400;
+  }
+}

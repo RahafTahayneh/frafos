@@ -1,0 +1,37 @@
+.dropdown-wrapper {
+  position: relative;
+
+  .selected-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+  }
+
+  .open {
+    fill: none;
+  }
+
+  .closed {
+    fill: none;
+  }
+
+  .options {
+    border-radius: 8px;
+    border: 1px solid lightgray;
+    background-color: white;
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    margin-top: 8px;
+
+    li {
+      padding: 8px 16px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e5e5e5;
+      }
+    }
+  }
+}

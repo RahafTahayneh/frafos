@@ -1,0 +1,75 @@
+@use "sass:math";
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700");
+
+$font: Montserrat, sans-serif;
+$body-text: 14px;
+$ratio: 1.25;
+$h2: $body-text * $ratio;
+$h1: $h2 * $ratio;
+
+* {
+  font-family: $font !important;
+}
+
+.body-text {
+  font-size: $body-text;
+  line-height: 20px;
+  color: $black;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: $h1;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: $h2;
+  color: $black;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+p,
+div,
+span {
+  font-size: 100%;
+}
+
+.bold {
+  font-weight: 600;
+  color: $black;
+  font-size: 100%;
+}
+
+.top-nav-white {
+  font-weight: 600;
+  color: $white-60;
+  font-size: 100%;
+}
+
+.top-nav-thin {
+  font-weight: 400;
+  color: $white-60;
+  font-size: 100%;
+}
+
+.top-nav-active,
+.body-text-white {
+  color: $white;
+}
+
+.header {
+  color: $black;
+}
+
+.muted,
+.disabled {
+  color: $gray-400;
+}

@@ -1,0 +1,20 @@
+// fixes multiple rendering issues on Safari
+// https://stackoverflow.com/questions/22648553/chrome-safari-opacity-transition-bug-creates-st
+* {
+  -webkit-backface-visibility: hidden;
+}
+
+// common styling
+@import "./_variables.scss";
+
+@import "./_typography.scss";
+
+@import "../layout/style.scss";
+
+@import "../pages/_import.scss";
+
+@import "../components/_import.scss";
+
+.root {
+  height: 100vh;
+}

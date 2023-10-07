@@ -1,0 +1,142 @@
+.sidebar {
+  width: 180px;
+  height: 100vh;
+  background-color: $white;
+  position: fixed;
+  border-right: 1px $gray-500 solid;
+  transition: width 0.15s;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    color: $primary-color;
+    margin-bottom: 32px;
+    padding: 16px;
+  }
+
+  .sidebar-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    margin-right: 10px;
+  }
+
+  .logo-text {
+    font-weight: bold;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    color: #908989;
+    cursor: pointer;
+    gap: 12px;
+    padding: 16px;
+    text-decoration: none !important;
+    &.active-route {
+      color: $primary-color;
+      background-color: #e5e7e9;
+    }
+  }
+
+  .sidebar-text {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .sidebar-item:hover {
+    color: $primary-color;
+    background-color: #e5e7e9;
+  }
+
+  .logout-section {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .logout-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 16px;
+    transition: background-color 0.3s, color 0.3s;
+    color: #908989;
+
+    &:hover {
+      background-color: $gray-200;
+      color: $primary-color;
+    }
+  }
+
+  &.collapsed {
+    width: 50px;
+
+    .logo-text,
+    .sidebar-text,
+    .logout-button span {
+      display: none;
+    }
+
+    .sidebar-item,
+    .logout-button {
+      justify-content: center;
+    }
+  }
+
+  .toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    transform: translateY(-50%);
+    background-color: $white;
+    border: 1px solid $gray-500;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    visibility: hidden;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $gray-200;
+    }
+  }
+
+  &:hover {
+    .toggle-icon {
+      visibility: visible;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 50px;
+
+    .logo-text,
+    .sidebar-text,
+    .logout-button span {
+      display: none;
+    }
+
+    .sidebar-item,
+    .logout-button {
+      justify-content: center;
+    }
+  }
+
+  .toggle-icon {
+    display: none; // Hide the toggle icon on smaller screens
+  }
+}
