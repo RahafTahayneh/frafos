@@ -2,7 +2,7 @@ import {
   DATE_FILTER_OPTIONS,
   DateRangeFilterType,
 } from "../types/dateFilterTypes";
-import { TypeDateHeatmapAgg } from "../types";
+import { HeatmapEventDataType } from "../types";
 import { DataFilterType } from "../types/dataFilterTypes";
 
 type FilterableDataType = {
@@ -20,16 +20,6 @@ const getStartDate = (filterType: DateRangeFilterType): Date => {
   }
 
   return new Date(now.getTime() - duration);
-};
-
-export const flattenHeatmapData = (data: TypeDateHeatmapAgg[]) => {
-  return data.flatMap((item) => {
-    return item.buckets.map((bucket) => ({
-      key_as_string: item.key_as_string,
-      type: bucket.key,
-      doc_count: bucket.doc_count,
-    }));
-  });
 };
 
 export const filterDataByDate = <T extends FilterableDataType>(

@@ -3,38 +3,50 @@
     {
       "key_as_string": "2023-10-07T17:28:32.038Z",
       "key": 1696695345000,
-      "count": 102,
-      "message": "success"
+      "c_count": 102,
+      "message": "success",
+      "type": "call-attempt",
+      "count": 0
     },
     {
       "key_as_string": "2023-10-07T18:45:15.042Z",
       "key": 1696700315042,
-      "count": 10,
-      "message": "bad-request"
+      "c_count": 10,
+      "message": "bad-request",
+      "type": "call-attempt",
+      "count": 0
     },
     {
       "key_as_string": "2023-10-07T19:55:58.056Z",
       "key": 1696704958056,
-      "count": 30,
-      "message": "unauthorized"
+      "c_count": 30,
+      "message": "unauthorized",
+      "type": "call-attempt",
+      "count": 0
     },
     {
       "key_as_string": "2023-10-08T03:15:12.032Z",
       "key": 1696784112032,
-      "count": 120,
-      "message": "forbidden"
+      "c_count": 120,
+      "message": "forbidden",
+      "type": "call-attempt",
+      "count": 0
     },
     {
       "key_as_string": "2023-10-06T14:30:45.028Z",
       "key": 1696608245028,
-      "count": 40,
-      "message": "decline"
+      "c_count": 40,
+      "message": "decline",
+      "type": "call-attempt",
+      "count": 0
     },
     {
       "key_as_string": "2023-10-05T16:22:58.020Z",
       "key": 1696521778020,
-      "count": 4,
-      "message": "ringing"
+      "c_count": 4,
+      "message": "ringing",
+      "type": "call-attempt",
+      "count": 0
     }
   ]
 }

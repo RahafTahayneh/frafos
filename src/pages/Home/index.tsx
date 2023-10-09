@@ -15,14 +15,30 @@ export const Home = () => {
     if (heatmap.data.length > 0) {
       renderHeatmap(heatmap.data, selectedFilter.dateFilter);
     }
-
     if (parallelCalls.data.length > 0) {
       renderParallelCall(parallelCalls.data, selectedFilter.dateFilter);
     }
-
     if (parallelRegs.data.length > 0) {
       renderParallelRegs(parallelRegs.data, selectedFilter.dateFilter);
     }
+  }, [heatmap, parallelCalls.data, parallelRegs.data, selectedFilter]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (heatmap.data.length > 0) {
+        renderHeatmap(heatmap.data, selectedFilter.dateFilter);
+      }
+      if (parallelCalls.data.length > 0) {
+        renderParallelCall(parallelCalls.data, selectedFilter.dateFilter);
+      }
+      if (parallelRegs.data.length > 0) {
+        renderParallelRegs(parallelRegs.data, selectedFilter.dateFilter);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize); // Cleanup listener on component unmount
   }, [heatmap, parallelCalls.data, parallelRegs.data, selectedFilter]);
 
   return (
@@ -61,12 +77,12 @@ export const Home = () => {
             <div id="time"></div>
           </div>
 
-          <svg id="heatmap" width="1000"></svg>
+          <svg id="heatmap" width={"100%"} height={300}></svg>
         </Collapse>
       </div>
 
       <div className="row-data">
-        <div>
+        <div style={{ flex: 1 }}>
           <Collapse
             title="Parallel Calls"
             isNoData={parallelRegs.data.length === 0}
@@ -76,7 +92,7 @@ export const Home = () => {
               <div id="time"></div>
             </div>
 
-            <svg id="parallel-calls" width="1000"></svg>
+            <svg id="parallel-calls" width="100%" height={300}></svg>
           </Collapse>
         </div>
         <div>
@@ -86,7 +102,7 @@ export const Home = () => {
 
       <div>
         <div className="row-data">
-          <div>
+          <div style={{ flex: 1 }}>
             <Collapse
               title="Parallel Regs"
               isNoData={heatmap.data.length === 0}
@@ -96,7 +112,7 @@ export const Home = () => {
                 <div id="time"></div>
               </div>
 
-              <svg id="parallel-regs" width="1000"></svg>
+              <svg id="parallel-regs" width="100%" height={300}></svg>
             </Collapse>
           </div>
           <div>

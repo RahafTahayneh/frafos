@@ -4,7 +4,7 @@ import * as d3 from "d3";
 
 function aggregateData(data: CallTerminatedType[]) {
   return data.reduce((acc, curr) => {
-    acc[curr.message] = (acc[curr.message] || 0) + curr.count;
+    acc[curr.message] = (acc[curr.message] || 0) + curr.c_count;
     return acc;
   }, {} as Record<CallTerminatedEventType, number>);
 }

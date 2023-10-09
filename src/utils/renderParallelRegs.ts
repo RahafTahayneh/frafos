@@ -12,16 +12,14 @@ export function renderParallelRegs(
       "The element with id 'parallel-calls' is not an SVG element or does not exist."
     );
   }
-
-  const parentHeight = (svgElement.parentNode as HTMLElement).clientHeight;
   const svg = d3.select(svgElement);
   svg.selectAll("*").remove();
 
+  const staticHeight = parseFloat(svgElement.getAttribute("height") || "300");
+
   const margin = { top: 10, right: 100, bottom: 30, left: 30 },
     width = +svgElement.clientWidth - margin.left - margin.right,
-    height = parentHeight - margin.top - margin.bottom;
-
-  svg.attr("height", parentHeight.toString());
+    height = staticHeight - margin.top - margin.bottom;
 
   let minDate: Date;
   let maxDate: Date = new Date();
@@ -66,13 +64,21 @@ export function renderParallelRegs(
     default:
       throw new Error(`Unknown filter: ${selectedFilter}`);
   }
+  const idealPixelSpacing = 100;
+  const numberOfTicks = Math.floor(width / idealPixelSpacing);
+
+  const maxCount = d3.max(data, (d) => d.r_count);
+  const y = d3
+    .scaleLinear()
+    .domain([0, maxCount || 5])
+    .range([height, 0]);
+
   const x = d3.scaleTime().domain([minDate, maxDate]).range([0, width]);
-  const y = d3.scaleLinear().domain([0, 5]).range([height, 0]);
 
   const line = d3
     .line<ParallelRegsType>()
     .x((d) => x(new Date(d.key_as_string)))
-    .y((d) => y(d.count));
+    .y((d) => y(d.r_count));
 
   const color = d3.scaleOrdinal(["rgb(165, 202, 71)", "rgb(202, 165, 71)"]); // Second color is just an example
 
@@ -84,7 +90,12 @@ export function renderParallelRegs(
   svg
     .append("g")
     .attr("transform", `translate(${margin.left},${height + margin.top})`)
-    .call(d3.axisBottom(x).tickFormat(d3.timeFormat(timeFormat) as any));
+    .call(
+      d3
+        .axisBottom(x)
+        .ticks(numberOfTicks)
+        .tickFormat(d3.timeFormat(timeFormat) as any)
+    );
 
   const nestedData = d3.group(data, (d) => d.label);
 
@@ -104,7 +115,7 @@ export function renderParallelRegs(
         .append("circle")
         .attr("class", label)
         .attr("cx", x(new Date(entry.key_as_string)))
-        .attr("cy", y(entry.count))
+        .attr("cy", y(entry.r_count))
         .attr("r", 5)
         .attr("fill", color(label))
         .attr("transform", `translate(${margin.left},${margin.top})`)
@@ -117,7 +128,7 @@ export function renderParallelRegs(
           tooltip.style("visibility", "visible");
           tooltip
             .select("#type")
-            .html(`<b>Type:</b>  ${entry.count}  ${entry.label}`);
+            .html(`<b>Type:</b>  ${entry.r_count}  ${entry.label}`);
           tooltip.select("#time").html(`<b>Time:</b> ${formattedTime}`);
           tooltip.style("left", event.pageX + 10 + "px");
           tooltip.style("top", event.pageY + 10 + "px");
@@ -133,6 +144,7 @@ export function renderParallelRegs(
 
   const legendCircleRadius = 8; // Adjust as needed
   const legendCircleOffset = 15; // Space between circle and text
+  const legendPositionX = width * 0.9; // 90% of the width
 
   uniqueLabels.forEach((label, index) => {
     const legendTextY = margin.top + index * legendSpace;
@@ -146,7 +158,7 @@ export function renderParallelRegs(
     // Appending circle for each label
     svg
       .append("circle")
-      .attr("cx", width - 100 - legendCircleOffset)
+      .attr("cx", legendPositionX - legendCircleOffset)
       .attr("cy", legendTextY)
       .attr("r", legendCircleRadius)
       .style("fill", color(label))
@@ -155,7 +167,7 @@ export function renderParallelRegs(
     // Adjusting label text position and style
     svg
       .append("text")
-      .attr("x", width - 100)
+      .attr("x", legendPositionX)
       .attr("y", legendTextY)
       .attr("dy", "0.35em")
       .text(label)

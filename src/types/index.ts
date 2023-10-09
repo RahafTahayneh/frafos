@@ -15,13 +15,11 @@ export enum CallTerminatedEventType {
   "CALLEE_TERMINATED" = "callee-terminated",
 }
 
-export type TypeDateHeatmapAgg = {
+export type HeatmapEventDataType = {
   key_as_string: string;
   key: number;
-  buckets: Array<{
-    key: EventType;
-    doc_count: number;
-  }>;
+  type: EventType;
+  count: number;
 };
 
 export type EventsOverTimeType = {
@@ -41,7 +39,7 @@ export type SumOverTimeType = {
 export type CallSuccessType = {
   key_as_string: string;
   key: number;
-  count: number;
+  c_count: number;
   message: string;
   type?: EventType;
 };
@@ -49,33 +47,27 @@ export type CallSuccessType = {
 export type CallTerminatedType = {
   key_as_string: string;
   key: number;
-  count: number;
-  type?: EventType;
+  c_count: number;
   message: CallTerminatedEventType;
+  type?: EventType;
 };
 
 export type ParallelCallsType = {
   key_as_string: string;
   key: number;
-  count: number;
+  c_count: number;
   label: CallsType;
   type?: EventType;
-  buckets: Array<{
-    key: EventType;
-    doc_count: number;
-  }>;
+  count?: number;
 };
 
 export type ParallelRegsType = {
   key_as_string: string;
   key: number;
-  count: number;
+  r_count: number;
   label: RegsType;
   type?: EventType;
-  buckets: Array<{
-    key: EventType;
-    doc_count: number;
-  }>;
+  count?: number;
 };
 
 export type ChartData<T> = {

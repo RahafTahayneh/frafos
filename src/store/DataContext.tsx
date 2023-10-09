@@ -5,7 +5,6 @@ import React, {
   useEffect,
   ReactNode,
   useCallback,
-  useMemo,
 } from "react";
 import {
   CallSuccessType,
@@ -18,7 +17,7 @@ import {
   ParallelRegsType,
   RegsType,
   SumOverTimeType,
-  TypeDateHeatmapAgg,
+  HeatmapEventDataType,
 } from "../types";
 import dateTypeHeapMap from "../data/dummyTypeDateHeatMap.json";
 import parallelCallsData from "../data/dummyParallelCall.json";
@@ -34,13 +33,10 @@ import { DataFilterType, EventTypeFilter } from "../types/dataFilterTypes";
 import { filterDataByDate } from "./utils";
 
 const filterByEventType = (
-  data: TypeDateHeatmapAgg[],
+  data: HeatmapEventDataType[],
   eventTypes: EventType[]
-): TypeDateHeatmapAgg[] => {
-  return data.map((item) => ({
-    ...item,
-    buckets: item.buckets.filter((bucket) => eventTypes.includes(bucket.key)),
-  }));
+): HeatmapEventDataType[] => {
+  return data.filter((item) => eventTypes.includes(item.type));
 };
 
 const defaultEventTypeFilter: EventTypeFilter = Object.values(EventType).reduce(
@@ -57,7 +53,7 @@ const initialFilter: DataFilterType = {
 };
 
 type DataStore = {
-  heatmap: ChartData<TypeDateHeatmapAgg[]>;
+  heatmap: ChartData<HeatmapEventDataType[]>;
   parallelCalls: ChartData<ParallelCallsType[]>;
   parallelRegs: ChartData<ParallelRegsType[]>;
   eventsOverTime: ChartData<EventsOverTimeType[]>;
@@ -81,7 +77,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [selectedFilter, setSelectedFilter] =
     useState<DataFilterType>(initialFilter);
 
-  const [heatmap, setHeatmap] = useState<ChartData<TypeDateHeatmapAgg[]>>({
+  const [heatmap, setHeatmap] = useState<ChartData<HeatmapEventDataType[]>>({
     data: [],
   });
 
@@ -132,17 +128,11 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   const activeEvents = getActiveEventTypes(selectedFilter);
 
-  console.log(activeEvents);
-
   const refreshData = useCallback(() => {
-    console.log("Hello");
     const filteredHeatmap = filterDataByDate(
       dateTypeHeapMap.data.map((element) => ({
         ...element,
-        buckets: element.buckets.map((b) => ({
-          ...b,
-          key: b.key as EventType,
-        })),
+        type: element.type as EventType,
       })),
       selectedFilter
     );
@@ -150,10 +140,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       parallelCallsData.data.map((element) => ({
         ...element,
         label: element.label as CallsType,
-        buckets: element.buckets.map((b) => ({
-          ...b,
-          key: b.key as EventType,
-        })),
+        type: element.type as EventType,
       })),
       selectedFilter
     );
@@ -161,10 +148,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       parallelRegsData.data.map((element) => ({
         ...element,
         label: element.label as RegsType,
-        buckets: element.buckets.map((b) => ({
-          ...b,
-          key: b.key as EventType,
-        })),
+        type: element.type as EventType,
       })),
       selectedFilter
     );
@@ -187,13 +171,17 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       selectedFilter
     );
     const filteredCallsSuccess = filterDataByDate(
-      dummyCallsSuccessData.data,
+      dummyCallsSuccessData.data.map((element) => ({
+        ...element,
+        type: element.type as EventType,
+      })),
       selectedFilter
     );
     const filteredCallsTerminated = filterDataByDate(
       dummyCallsTerminatedData.data.map((element) => ({
         ...element,
         message: element.message as CallTerminatedEventType,
+        type: element.type as EventType,
       })),
       selectedFilter
     );

@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100%;
   justify-content: flex-start;
-
+  width: 100%;
   .tooltip {
     z-index: 1000;
     position: absolute;
@@ -38,5 +38,6 @@
   flex-direction: row;
   align-items: start;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 8px;
 }

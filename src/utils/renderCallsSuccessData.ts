@@ -12,7 +12,7 @@ function aggregateCallSuccessData(
     if (!aggregatedData[d.message]) {
       aggregatedData[d.message] = 0;
     }
-    aggregatedData[d.message] += d.count;
+    aggregatedData[d.message] += d.c_count;
   });
 
   return Object.entries(aggregatedData).map(([message, count]) => ({
@@ -56,7 +56,7 @@ export const renderCallsSuccessData = (
     .attr("d", arc)
     .attr("fill", (d) => color(d.data.message))
     .on("mouseover", function (event, d) {
-      const percentage = (d.data.count / d3.sum(data, (p) => p.count)!) * 100;
+      const percentage = (d.data.count / d3.sum(data, (p) => p.c_count)!) * 100;
       const tooltip = d3.select("#tooltip-calls-success");
       tooltip
         .style("left", `${event.pageX}px`)

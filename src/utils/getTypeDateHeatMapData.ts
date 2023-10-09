@@ -1,23 +1,25 @@
 import { DateRangeFilterType } from "../types/dateFilterTypes";
-import { TypeDateHeatmapAgg } from "../types";
+import { HeatmapEventDataType } from "../types";
 import * as d3 from "d3";
 
 export function renderHeatmap(
-  data: TypeDateHeatmapAgg[],
+  data: HeatmapEventDataType[],
   selectedFilter: DateRangeFilterType
 ) {
   const svg = d3.select("#heatmap");
   svg.selectAll("*").remove();
 
   const margin = { top: 20, right: 20, bottom: 30, left: 100 };
-  const width = +svg.attr("width") - margin.left - margin.right;
+  const svgWidth =
+    (svg.node() as SVGElement)?.getBoundingClientRect().width || 600;
+  // Default to 600 if width cannot be determined
+  const width = svgWidth - margin.left - margin.right;
+
   const baseHeightPerBand = 30;
   const paddingBetweenBands = 5;
 
   const eventTypeSums = data.reduce((acc, d) => {
-    d.buckets.forEach((bucket) => {
-      acc[bucket.key] = (acc[bucket.key] || 0) + bucket.doc_count;
-    });
+    acc[d.type] = (acc[d.type] || 0) + d.count;
     return acc;
   }, {} as { [key: string]: number });
 
@@ -77,13 +79,16 @@ export function renderHeatmap(
       throw new Error(`Unknown filter: ${selectedFilter}`);
   }
 
+  const basicIntervalWidth = 100; // Decide on a width for a single interval
+  const numberOfIntervals = Math.floor(width / basicIntervalWidth); // Determine the number of intervals based on x-axis width
+
   const timeScale = d3.scaleTime().domain([minDate, maxDate]).range([0, width]);
-  const intervalSize = (maxDate.getTime() - minDate.getTime()) / 8;
+  const intervalSize =
+    (maxDate.getTime() - minDate.getTime()) / (numberOfIntervals - 1);
   const timeIntervals = Array.from(
-    { length: 9 },
+    { length: numberOfIntervals },
     (_, i) => new Date(minDate.getTime() + i * intervalSize)
   );
-
   const x = d3
     .scaleBand()
     .domain(timeIntervals.map((d) => d3.timeFormat(timeFormat)(d)))
@@ -96,9 +101,8 @@ export function renderHeatmap(
     .range([0, totalHeight - margin.top - margin.bottom])
     .padding(0.1);
 
-  const maxCount =
-    d3.max(data.flatMap((d) => d.buckets.map((bucket) => bucket.doc_count))) ||
-    1;
+  const maxCount = d3.max(data.map((d) => d.count)) || 1;
+
   const color = d3.scaleSequential(d3.interpolateGreens).domain([0, maxCount]);
 
   const g = svg
@@ -131,42 +135,37 @@ export function renderHeatmap(
     .text("Event Data Type");
 
   data.forEach((d) => {
-    d.buckets.forEach((bucket) => {
-      if (bucket.doc_count > 0) {
-        // Only plot if doc_count is greater than 0
-        g.append("rect")
-          .attr("x", timeScale(new Date(d.key_as_string)) - x.bandwidth() / 2)
-          .attr("y", y(bucket.key) || 0)
-          .attr("width", 16)
-          .attr("height", 20)
-          .attr("fill", color(bucket.doc_count))
-          .attr("rx", 4)
-          .attr("ry", 4)
+    if (d.count > 0) {
+      // Only plot if count is greater than 0
+      g.append("rect")
+        .attr("x", timeScale(new Date(d.key_as_string)) - x.bandwidth() / 2)
+        .attr("y", y(d.type) || 0)
+        .attr("width", 16)
+        .attr("height", 20)
+        .attr("fill", color(d.count))
+        .attr("rx", 4)
+        .attr("ry", 4)
+        .on("mouseover", function (event) {
+          const tooltip = d3.select("#tooltip");
+          const xPosition = event.pageX + 10; // Adjust these values to position the tooltip
+          const yPosition = event.pageY + 10;
 
-          .on("mouseover", function (event, dumb) {
-            const tooltip = d3.select("#tooltip");
-            const xPosition = event.pageX + 10; // Adjust these values to position the tooltip
-            const yPosition = event.pageY + 10;
+          tooltip
+            .style("left", xPosition + "px")
+            .style("top", yPosition + "px")
+            .style("visibility", "visible")
+            .style("padding", "5px");
 
-            tooltip
-              .style("left", xPosition + "px")
-              .style("top", yPosition + "px")
-              .style("visibility", "visible")
-              .style("padding", "5px");
-
-            d3.select("#type").html(
-              `<b>Type:</b> ${bucket.key} (${bucket.doc_count})`
-            );
-            d3.select("#time").html(
-              `<b>Time:</b> ${d3.timeFormat("%d %b %H:%M")(
-                new Date(d.key_as_string)
-              )}`
-            );
-          })
-          .on("mouseout", function () {
-            d3.select("#tooltip").style("visibility", "hidden");
-          });
-      }
-    });
+          d3.select("#type").html(`<b>Type:</b> ${d.type} (${d.count})`);
+          d3.select("#time").html(
+            `<b>Time:</b> ${d3.timeFormat("%d %b %H:%M")(
+              new Date(d.key_as_string)
+            )}`
+          );
+        })
+        .on("mouseout", function () {
+          d3.select("#tooltip").style("visibility", "hidden");
+        });
+    }
   });
 }
