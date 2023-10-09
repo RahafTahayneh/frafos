@@ -3,12 +3,14 @@
   background-color: $white;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   border-bottom: 1px $gray-500 solid;
 
   .user-profile {
     display: flex;
     flex-direction: row;
     align-items: center;
+    cursor: pointer;
   }
   .avatar {
     height: 30px;
@@ -20,5 +22,11 @@
   .username {
     font-size: 12px;
     font-weight: 400;
+    align-items: center;
+    display: flex;
+  }
+
+  .icon {
+    color: $gray-500;
   }
 }

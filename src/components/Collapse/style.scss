@@ -1,0 +1,37 @@
+.collapse-container {
+  border: 1px solid $gray-500;
+  border-radius: 16px;
+  background-color: $white;
+}
+
+.collapse-header {
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+  color: $black;
+  font-weight: 600;
+}
+
+.collapse-content {
+  padding: 10px;
+}
+
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.icon {
+  /* Replace with your actual icon styling */
+  width: 50px;
+  height: 50px;
+  background-color: #ddd;
+  margin-bottom: 10px;
+}

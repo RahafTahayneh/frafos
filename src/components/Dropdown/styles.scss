@@ -1,5 +1,8 @@
 .dropdown-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
   .selected-option {
     display: flex;
@@ -8,22 +11,16 @@
     gap: 8px;
   }
 
-  .open {
-    fill: none;
-  }
-
-  .closed {
-    fill: none;
-  }
-
-  .options {
+  .dropdown {
     border-radius: 8px;
     border: 1px solid lightgray;
     background-color: white;
     list-style: none;
     padding: 0;
     position: absolute;
-    margin-top: 8px;
+    top: 100%; // position it right under the parent div
+    left: 0;
+    z-index: 10; // This will ensure the dropdown is rendered above other elements
 
     li {
       padding: 8px 16px;

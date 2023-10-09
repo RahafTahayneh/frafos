@@ -2,11 +2,13 @@
   display: flex;
   gap: 16px;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 16px;
+  align-items: center;
 
   .icon-wrapper {
     display: flex;
+    position: relative;
     align-items: center;
     border-radius: 8px;
     border: 1px solid lightgray;
@@ -16,6 +18,19 @@
     font-size: 12px;
     color: $gray-400;
 
+    .selected-filter-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: red; // You can choose any color you like
+      color: white;
+      border-radius: 50%; // To make it round
+      font-size: 10px;
+      padding: 4px;
+      min-width: 12px; // To ensure the badge has a minimum size
+      text-align: center;
+    }
+
     span {
       margin-left: 8px; // gap between icon and text
     }
@@ -23,6 +38,21 @@
     &:hover {
       background-color: #f3f3f3; // a bit darker on hover
     }
+  }
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .search-input {
+    border: none;
+    padding: 8px;
+    flex-grow: 1;
+    outline: none;
   }
 
   .dropdown {
@@ -40,6 +70,111 @@
 
       &:hover {
         background-color: #e5e5e5;
+      }
+    }
+  }
+  .filter-popup {
+    border-radius: 16px;
+    position: absolute;
+    width: 400px;
+    overflow-y: auto;
+
+    background-color: white;
+    padding: 16px;
+    border: 1px solid $gray-500;
+    top: 100%; // to position it under the filter icon
+    right: 0;
+    margin-top: 4px;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid $gray-500;
+    }
+    .section {
+      display: flex;
+      flex-direction: column;
+      padding-top: 12px;
+    }
+    .section-title {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .options-list {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap; // Add this line to allow items to wrap
+      gap: 8px; // Add some gap for wrapped items
+      padding: 16px;
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-right: 8px;
+      width: 150px;
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+      }
+
+      .color-indicator {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin-left: 0px;
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+
+      &:hover {
+        color: $black;
+      }
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 16px;
+      gap: 8px;
+      margin-top: 24px;
+
+      .ternary-btn {
+        color: $black;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 12px;
+        background-color: transparent;
+        &:hover {
+          color: #000;
+        }
+      }
+
+      .primary-btn {
+        background-color: $primary-color; // replace with your primary color
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 12px;
+
+        &:hover {
+          background-color: #277d28;
+        }
       }
     }
   }

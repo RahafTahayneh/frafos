@@ -5,10 +5,15 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 interface DropdownProps {
   options: string[];
   label: string;
+  onSelect?: (selectedOption: string) => void; // <-- Add this line
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, label }) => {
+const Dropdown: React.FC<DropdownProps> = ({ options, label, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const handleOptionClick = (option: string) => {
+    onSelect?.(option);
+    setIsOpen(false);
+  };
 
   return (
     <div className="icon-wrapper dropdown-wrapper">
@@ -25,7 +30,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, label }) => {
       {isOpen && (
         <ul className="dropdown">
           {options.map((option, index) => (
-            <li key={index} onClick={() => setIsOpen(false)}>
+            <li key={index} onClick={() => handleOptionClick(option)}>
               {option}
             </li>
           ))}

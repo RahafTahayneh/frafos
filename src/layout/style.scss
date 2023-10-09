@@ -7,6 +7,7 @@
   }
 
   .main-content {
+    width: 100%;
     flex: 1;
     display: flex;
     background-color: #fbfbfb;
@@ -19,11 +20,13 @@
     padding: 24px;
     overflow-y: auto;
     background-color: #fbfbfb;
+    display: flex;
+    justify-content: flex-start;
   }
 }
 
 @media (max-width: 768px) {
   .main-content {
-    margin-left: 50px; /* Adjust for collapsed sidebar width on smaller screens */
+    margin-left: 50px !important; /* Adjust for collapsed sidebar width on smaller screens */
   }
 }

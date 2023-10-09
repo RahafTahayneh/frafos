@@ -10,7 +10,7 @@ const Card: React.FC<CardProps> = ({ label, value, info }) => {
   return (
     <div className="card-wrapper">
       <div className="label">{label}</div>
-      <div className="value">{value}</div>
+      <div className="value">{value ?? 0}</div>
     </div>
   );
 };

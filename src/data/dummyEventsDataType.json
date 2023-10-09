@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "key_as_string": "2023-10-08T03:15:12.032Z",
+      "key": 1696695345050,
+      "type": "call-attempt",
+      "doc_count": 120
+    },
+    {
+      "key_as_string": "2023-10-07T18:45:15.042Z",
+      "key": 1696695345000,
+      "type": "call-start",
+      "doc_count": 10
+    },
+    {
+      "key_as_string": "2023-10-08T03:15:12.032Z",
+      "key": 1696195345000,
+      "type": "call-end",
+      "doc_count": 20
+    }
+  ]
+}

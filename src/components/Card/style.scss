@@ -1,19 +1,21 @@
 .card-wrapper {
   border: 1px $gray-500 solid;
   border-radius: 8px;
-  padding: 16px;
-
+  padding: 12px;
+  background-color: $white;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   color: $black;
+  width: 130px;
 
   .label {
     font-size: 14px;
   }
 
   .value {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
+    margin-top: 16px;
   }
 }
