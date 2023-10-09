@@ -10,7 +10,10 @@ export function renderSumOverTimeData(
   svg.selectAll("*").remove();
 
   const margin = { top: 20, right: 35, bottom: 50, left: 50 };
-  const width = +svg.attr("width") - margin.left - margin.right;
+  const svgWidth =
+    (svg.node() as SVGElement)?.getBoundingClientRect().width || 600;
+  // Default to 600 if width cannot be determined
+  const width = svgWidth - margin.left - margin.right;
   const height = +svg.attr("height") - margin.top - margin.bottom;
 
   const g = svg
@@ -62,7 +65,8 @@ export function renderSumOverTimeData(
   }
 
   // Set scales
-
+  const idealPixelSpacing = 100;
+  const numberOfTicks = Math.floor(width / idealPixelSpacing);
   const x = d3.scaleTime().domain([minDate, maxDate]).range([0, width]);
   const calculatedWidth = (width / data.length) * 0.8;
   const barWidth = Math.min(calculatedWidth, 32);
@@ -71,8 +75,9 @@ export function renderSumOverTimeData(
   const y = d3.scaleLinear().domain([0, maxCount]).range([height, 0]).nice(4);
 
   const xAxis = d3
-    .axisBottom<Date>(x)
-    .tickFormat(d3.timeFormat(timeFormat) as (d: Date) => string);
+    .axisBottom(x)
+    .ticks(numberOfTicks)
+    .tickFormat(d3.timeFormat(timeFormat) as any);
 
   const yAxis = d3.axisLeft(y).ticks(4);
 

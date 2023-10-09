@@ -42,6 +42,43 @@ export const Calls = () => {
     sumOverTime.data,
   ]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (eventsOverTime.data.length > 0) {
+        renderEventsOverTimeGraph(
+          eventsOverTime.data,
+          selectedFilter.dateFilter
+        );
+      }
+
+      if (sumOverTime.data.length > 0) {
+        renderSumOverTimeData(sumOverTime.data, selectedFilter.dateFilter);
+      }
+      if (callsSuccessTime.data.length > 0) {
+        renderCallsSuccessData(
+          callsSuccessTime.data,
+          selectedFilter.dateFilter
+        );
+      }
+      if (callsTerminatedTime.data.length > 0) {
+        renderCallsTerminatedData(
+          callsTerminatedTime.data,
+          selectedFilter.dateFilter
+        );
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize); // Cleanup listener on component unmount
+  }, [
+    callsSuccessTime.data,
+    callsTerminatedTime.data,
+    eventsOverTime.data,
+    selectedFilter.dateFilter,
+    sumOverTime.data,
+  ]);
+
   return (
     <div className="page-call">
       <div className="title">
@@ -64,7 +101,7 @@ export const Calls = () => {
           isNoData={eventsOverTime.data.length === 0}
         >
           <div id="tooltip-events-over-time" className="tooltip"></div>
-          <svg width="1000" height="400" id="eventsOverTimeSVG"></svg>
+          <svg width="100%" height="300" id="eventsOverTimeSVG"></svg>
         </Collapse>
       </div>
       <div className="row-data">
@@ -73,7 +110,7 @@ export const Calls = () => {
           isNoData={sumOverTime.data.length === 0}
         >
           <div id="tooltip-sum-over-time" className="tooltip"></div>
-          <svg width="1000" height="400" id="sumOverTimeSVG"></svg>
+          <svg width="100%" height="300" id="sumOverTimeSVG"></svg>
         </Collapse>
       </div>
       <div
@@ -83,6 +120,7 @@ export const Calls = () => {
           justifyContent: "space-between",
           gap: 8,
           marginTop: 16,
+          width: "100%",
         }}
       >
         <Collapse

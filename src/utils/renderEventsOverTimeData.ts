@@ -15,7 +15,10 @@ export function renderEventsOverTimeGraph(
     .range(["rgb(245, 130, 49)", "rgb(97, 190, 226)", "rgb(88, 169, 89)"]);
 
   const margin = { top: 20, right: 35, bottom: 50, left: 50 };
-  const width = +svg.attr("width") - margin.left - margin.right;
+  const svgWidth =
+    (svg.node() as SVGElement)?.getBoundingClientRect().width || 600;
+  // Default to 600 if width cannot be determined
+  const width = svgWidth - margin.left - margin.right;
   const height = +svg.attr("height") - margin.top - margin.bottom;
 
   const legendData = colorScale.domain();
@@ -69,17 +72,19 @@ export function renderEventsOverTimeGraph(
   }
 
   // Set scales
-
+  const idealPixelSpacing = 100;
+  const numberOfTicks = Math.floor(width / idealPixelSpacing);
   const x = d3.scaleTime().domain([minDate, maxDate]).range([0, width]);
   const calculatedWidth = (width / data.length) * 0.8;
   const barWidth = Math.min(calculatedWidth, 32);
 
-  const maxCount = d3.max(data, (d) => d.doc_count) || 1;
+  const maxCount = d3.max(data, (d) => d.count) || 1;
   const y = d3.scaleLinear().domain([0, maxCount]).range([height, 0]).nice(4);
 
   const xAxis = d3
-    .axisBottom<Date>(x)
-    .tickFormat(d3.timeFormat(timeFormat) as (d: Date) => string);
+    .axisBottom(x)
+    .ticks(numberOfTicks)
+    .tickFormat(d3.timeFormat(timeFormat) as any);
 
   const yAxis = d3.axisLeft(y).ticks(4);
 
@@ -109,7 +114,7 @@ export function renderEventsOverTimeGraph(
         .style("left", event.pageX + 5 + "px")
         .style("top", event.pageY - 28 + "px")
         .html(
-          `<strong>Date:</strong> ${d.key_as_string}<br><strong>Count:</strong> ${d.doc_count}`
+          `<strong>Date:</strong> ${d.key_as_string}<br><strong>Count:</strong> ${d.count}`
         );
     })
     .on("mouseout", function () {
@@ -121,8 +126,8 @@ export function renderEventsOverTimeGraph(
     .duration(800) // Transition duration in milliseconds
     .ease(d3.easeCubicInOut) // Use a cubic easing function for smoother transitions
     .delay((d, i) => i * 50) // Add a staggered delay for each bar
-    .attr("y", (d) => y(d.doc_count)) // Animate to the final y position
-    .attr("height", (d) => height - y(d.doc_count)); // Animate the height to its final value
+    .attr("y", (d) => y(d.count)) // Animate to the final y position
+    .attr("height", (d) => height - y(d.count)); // Animate the height to its final value
 
   // Define the spacing and size for legend items
   const legendRectSize = 10; // defines the size of the colored squares in legend

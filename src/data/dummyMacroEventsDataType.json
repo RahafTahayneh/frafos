@@ -4,31 +4,31 @@
       "key_as_string": "2023-10-08T03:15:12.032Z",
       "key": 1696695345050,
       "type": "call-attempt",
-      "doc_count": 120
+      "count": 120
     },
     {
       "key_as_string": "2023-10-07T18:45:15.042Z",
       "key": 1696695345000,
       "type": "call-start",
-      "doc_count": 10
+      "count": 10
     },
     {
       "key_as_string": "2023-10-08T03:15:12.032Z",
       "key": 1696195345000,
       "type": "call-end",
-      "doc_count": 20
+      "count": 20
     },
     {
       "key_as_string": "2023-10-08T10:40:12.032Z",
       "key": 1696784112032,
       "type": "error",
-      "doc_count": 40
+      "count": 40
     },
     {
       "key_as_string": "2023-10-06T14:30:45.028Z",
       "key": 1696608245028,
       "type": "conf-leave",
-      "doc_count": 5
+      "count": 5
     }
   ]
 }

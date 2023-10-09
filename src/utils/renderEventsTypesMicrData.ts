@@ -1,5 +1,5 @@
 import { DateRangeFilterType } from "../types/dateFilterTypes";
-import { CallSuccessType, EventsOverTimeType } from "../types";
+import { EventsOverTimeType } from "../types";
 
 import * as d3 from "d3";
 
@@ -12,7 +12,7 @@ function aggregateCallSuccessData(
     if (!aggregatedData[d.type]) {
       aggregatedData[d.type] = 0;
     }
-    aggregatedData[d.type] += d.doc_count;
+    aggregatedData[d.type] += d.count;
   });
 
   return Object.entries(aggregatedData).map(([message, count]) => ({
@@ -56,8 +56,7 @@ export const renderMacroEventsTypesData = (
     .attr("d", arc)
     .attr("fill", (d) => color(d.data.message))
     .on("mouseover", function (event, d) {
-      const percentage =
-        (d.data.count / d3.sum(data, (p) => p.doc_count)!) * 100;
+      const percentage = (d.data.count / d3.sum(data, (p) => p.count)!) * 100;
       const tooltip = d3.select("#tooltip-macro-types");
       tooltip
         .style("left", `${event.pageX}px`)

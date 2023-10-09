@@ -26,7 +26,7 @@ export type EventsOverTimeType = {
   key_as_string: string;
   key: number;
   type: EventType;
-  doc_count: number;
+  count: number;
 };
 
 export type SumOverTimeType = {
