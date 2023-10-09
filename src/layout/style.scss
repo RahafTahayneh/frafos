@@ -2,9 +2,6 @@
   display: flex;
   height: 100vh; /* Fill the viewport height */
   background-color: $white;
-  .sidebar.collapsed + .main-content {
-    margin-left: 50px; /* Adjust for collapsed sidebar width */
-  }
 
   .main-content {
     width: 100%;
@@ -12,7 +9,6 @@
     display: flex;
     background-color: #fbfbfb;
     flex-direction: column;
-    margin-left: 180px; /* This should be equal to the width of your sidebar */
   }
 
   .content-section {
@@ -22,11 +18,5 @@
     background-color: #fbfbfb;
     display: flex;
     justify-content: flex-start;
-  }
-}
-
-@media (max-width: 768px) {
-  .main-content {
-    margin-left: 50px !important; /* Adjust for collapsed sidebar width on smaller screens */
   }
 }

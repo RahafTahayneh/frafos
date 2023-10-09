@@ -2,10 +2,25 @@
   padding: 12px;
   background-color: $white;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px $gray-500 solid;
 
+  .img {
+    width: 100px;
+    height: 30px;
+  }
+  .logo-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+  .widgets {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8x;
+  }
   .user-profile {
     display: flex;
     flex-direction: row;

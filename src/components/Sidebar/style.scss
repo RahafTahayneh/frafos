@@ -1,10 +1,14 @@
 .sidebar {
   width: 180px;
-  height: 100vh;
-  background-color: $white;
-  position: fixed;
-  border-right: 1.8px $gray-500 solid;
+  height: 100%;
+  background-color: #ffffff;
+  position: absolute;
+  border-right: 1.8px #dad8d8 solid;
   transition: width 0.15s;
+  z-index: 1;
+  bottom: 0px;
+  left: 0px;
+  display: block;
 
   .logo-container {
     display: flex;
@@ -77,7 +81,7 @@
   }
 
   &.collapsed {
-    width: 50px;
+    display: none;
 
     .logo-text,
     .sidebar-text,
@@ -117,26 +121,5 @@
     .toggle-icon {
       visibility: visible;
     }
-  }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    width: 50px;
-
-    .logo-text,
-    .sidebar-text,
-    .logout-button span {
-      display: none;
-    }
-
-    .sidebar-item,
-    .logout-button {
-      justify-content: center;
-    }
-  }
-
-  .toggle-icon {
-    display: none; // Hide the toggle icon on smaller screens
   }
 }

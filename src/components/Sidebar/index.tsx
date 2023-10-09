@@ -4,17 +4,26 @@ import { FaHome, FaSignOutAlt } from "react-icons/fa";
 import { IoCallOutline } from "react-icons/io5";
 import { GiMicroscope } from "react-icons/gi";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
     <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
-      <div className="logo-container">
-        <div className="sidebar-logo" />
-        <span className="logo-text">FRAFOS</span>
-      </div>
-
+      {/* <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          padding: 12,
+        }}
+        onClick={() => setIsCollapsed(true)}
+      >
+        <MdCancel size={20} />
+      </div> */}
+      <div style={{ marginBottom: 70 }}></div>
       <NavLink
         to="/"
         className={({ isActive }) =>
