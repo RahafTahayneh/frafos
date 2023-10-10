@@ -63,6 +63,24 @@ npm start
 
 You are all set! Open [localhost:3000](http://localhost:3000/) to see the app.
 
+## 🛠️ Open Storybook
+
+Run the storybook
+
+```bash
+npm run storybook
+```
+
+## 🛠️ Run tests
+
+```bash
+npm test
+```
+
+```Enter
+a
+```
+
 ## 💻 Built with
 
 - [React JS](https://react.dev/)
