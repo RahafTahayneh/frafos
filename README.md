@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.frafos.com/">
-    <img alt="ProPic" src="public/assets/logo.png" width="125" />
+    <img alt="Frafos Monitor" src="public/logo.png" width="125" />
   </a>
 </p>
 <h1 align="center">FraFos Monitor</h1>
