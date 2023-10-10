@@ -16,7 +16,21 @@ export const Analytics = () => {
       );
     }
   }, [macroEventsOverTime.data, selectedFilter]);
+  useEffect(() => {
+    const handleResize = () => {
+      if (macroEventsOverTime.data.length > 0) {
+        renderMacroEventsTypesData(
+          macroEventsOverTime.data,
+          selectedFilter.dateFilter
+        );
+      }
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize); // Cleanup listener on component unmount
+  }, [macroEventsOverTime.data, selectedFilter.dateFilter]);
+  console.log(macroEventsOverTime.data);
   return (
     <div className="page-call">
       <div className="title">
@@ -31,7 +45,7 @@ export const Analytics = () => {
           isNoData={macroEventsOverTime.data.length === 0}
         >
           <div id="tooltip-macro-types" className="tooltip"></div>
-          <svg width="1000" height="400" id="typesSvg"></svg>
+          <svg width="100%" height="300" id="typesSvg"></svg>
         </Collapse>
       </div>
     </div>

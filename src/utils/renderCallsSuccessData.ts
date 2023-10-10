@@ -28,13 +28,16 @@ export const renderCallsSuccessData = (
   const svg = d3.select("#callsSuccessSvg");
   svg.selectAll("*").remove(); // clear previous rendering
 
+  const width =
+    (svg.node() as SVGElement)?.getBoundingClientRect().width || 300;
+  const height =
+    (svg.node() as SVGElement)?.getBoundingClientRect().height || 300;
   const aggregatedData = aggregateCallSuccessData(data);
 
-  const width = +svg.attr("width");
-  const height = +svg.attr("height");
-  const radius = (Math.min(width, height) / 2) * 0.6; // 80% of the original size
+  // Adjust the radius to make the pie take the full width or height (whichever is smaller)
+  const radius = (Math.min(width, height) / 2) * 0.6;
 
-  const color = d3.scaleOrdinal(d3.schemeCategory10); // color scheme
+  const color = d3.scaleOrdinal(d3.schemeCategory10);
 
   const pie = d3
     .pie<{ message: string; count: number }>()
@@ -82,11 +85,17 @@ export const renderCallsSuccessData = (
       // Reset opacity for all slices.
       slices.style("opacity", 1);
     });
+  const pieCenterX = width / 2;
+  const spaceRightOfPie = width - (pieCenterX + radius);
+
+  const legendWidth = 150; // Estimated width of the legend, can be adjusted
+  const legendMargin = (spaceRightOfPie - legendWidth) / 2; // Center the legend in the available space
+  const legendX = pieCenterX + radius + legendMargin;
 
   // Add legend
   const legendG = svg
     .append("g")
-    .attr("transform", `translate(${width - 150}, 30)`)
+    .attr("transform", `translate(${legendX}, 30)`)
     .selectAll(".legend")
     .data(pieData)
     .enter()

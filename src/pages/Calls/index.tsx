@@ -7,6 +7,7 @@ import { renderCallsSuccessData } from "../../utils/renderCallsSuccessData";
 import { renderCallsTerminatedData } from "../../utils/renderCallsTerminatedData";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Card from "../../components/Card";
+import { wrap } from "module";
 
 export const Calls = () => {
   const {
@@ -121,24 +122,32 @@ export const Calls = () => {
           gap: 8,
           marginTop: 16,
           width: "100%",
+          alignItems: "center",
+          flexWrap: "wrap",
         }}
       >
-        <Collapse
-          title="CALLS SUCCESS RATIO"
-          isNoData={callsSuccessTime.data.length === 0}
+        <div className="collapse-svg">
+          <Collapse
+            title="CALLS SUCCESS RATIO"
+            isNoData={callsSuccessTime.data.length === 0}
+          >
+            <div id="tooltip-calls-success" className="tooltip"></div>
+            <svg width={"100%"} height="300" id="callsSuccessSvg"></svg>
+          </Collapse>
+        </div>
+        <div
+          className="collapse-svg"
+          style={{ marginTop: 16, marginBottom: 16 }}
         >
-          <div id="tooltip-calls-success" className="tooltip"></div>
-          <svg width="600" height="400" id="callsSuccessSvg"></svg>
-        </Collapse>
-        <Collapse
-          title="CALLS TERMINATED RATIO"
-          isNoData={callsTerminatedTime.data.length === 0}
-        >
-          <div id="tooltip-calls-terminated" className="tooltip"></div>
-          <svg width="600" height="400" id="callsTerminatedSvg"></svg>
-        </Collapse>
+          <Collapse
+            title="CALLS TERMINATED RATIO"
+            isNoData={callsTerminatedTime.data.length === 0}
+          >
+            <div id="tooltip-calls-terminated" className="tooltip"></div>
+            <svg width={"100%"} height="300" id="callsTerminatedSvg"></svg>
+          </Collapse>
+        </div>
       </div>
-      <div className="cards-container"></div>
     </div>
   );
 };

@@ -28,8 +28,10 @@ export const renderCallsTerminatedData = (
   const aggregatedData = aggregateData(data);
   const transformedData = transformData(aggregatedData);
 
-  const width = +svg.attr("width");
-  const height = +svg.attr("height");
+  const width =
+    (svg.node() as SVGElement)?.getBoundingClientRect().width || 300;
+  const height =
+    (svg.node() as SVGElement)?.getBoundingClientRect().height || 300;
   const radius = (Math.min(width, height) / 2) * 0.6;
 
   const color = d3.scaleOrdinal(d3.schemeCategory10); // color scheme
@@ -83,11 +85,17 @@ export const renderCallsTerminatedData = (
       d3.select("#tooltip-calls-terminated").style("visibility", "hidden");
       slices.style("opacity", 1);
     });
+  const pieCenterX = width / 2;
+  const spaceRightOfPie = width - (pieCenterX + radius);
+
+  const legendWidth = 170; // Estimated width of the legend, can be adjusted
+  const legendMargin = (spaceRightOfPie - legendWidth) / 2; // Center the legend in the available space
+  const legendX = pieCenterX + radius + legendMargin;
 
   // Add legend
   const legendG = svg
     .append("g")
-    .attr("transform", `translate(${width - 170}, 30)`)
+    .attr("transform", `translate(${legendX}, 30)`)
     .selectAll(".legend")
     .data(pieData)
     .enter()

@@ -11,10 +11,11 @@ export const Collapse = ({
 
   isNoData: boolean;
 }) => {
+  console.log(isNoData);
   return (
     <div
       className="collapse-container"
-      style={{ width: "100%", height: isNoData ? "500px" : "auto" }}
+      style={{ width: "100%", height: isNoData ? "300px" : "auto" }}
     >
       <div className="collapse-header">
         <div>{title}</div>
@@ -22,8 +23,8 @@ export const Collapse = ({
       <div className="collapse-content">
         {isNoData ? (
           <div className="no-data">
-            <BiErrorCircle size={50} />
-            <p>No data found.</p>
+            <BiErrorCircle size={50} color={"#303a42"} />
+            <p style={{}}>No data found.</p>
           </div>
         ) : (
           children
