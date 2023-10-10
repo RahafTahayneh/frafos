@@ -9,7 +9,7 @@ interface HeatmapProps {
 
 const Heatmap: React.FC<HeatmapProps> = ({ data }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
-  console.log(data);
+
   useEffect(() => {
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();

@@ -30,7 +30,7 @@ export const Analytics = () => {
 
     return () => window.removeEventListener("resize", handleResize); // Cleanup listener on component unmount
   }, [macroEventsOverTime.data, selectedFilter.dateFilter]);
-  console.log(macroEventsOverTime.data);
+
   return (
     <div className="page-call">
       <div className="title">

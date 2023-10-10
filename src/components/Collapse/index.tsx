@@ -11,7 +11,6 @@ export const Collapse = ({
 
   isNoData: boolean;
 }) => {
-  console.log(isNoData);
   return (
     <div
       className="collapse-container"
