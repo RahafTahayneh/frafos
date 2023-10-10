@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useDataStore } from "../../store/DataContext";
-import { renderHeatmap } from "../../utils/getTypeDateHeatMapData";
+import { IoInformationCircleOutline } from "react-icons/io5";
 import { Wrapper } from "../../components/Wrapper";
 import Card from "../../components/Card";
+import { useDataStore } from "../../store/DataContext";
+import { renderHeatmap } from "../../utils/getTypeDateHeatMapData";
 import { renderParallelCall } from "../../utils/renderParallelCalls";
 import { renderParallelRegs } from "../../utils/renderParallelRegs";
-import { IoInformationCircleOutline } from "react-icons/io5";
 
 export const Home = () => {
   const { heatmap, parallelCalls, parallelRegs, selectedFilter, loading } =
@@ -40,7 +40,7 @@ export const Home = () => {
 
     window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize); // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
   }, [heatmap, parallelCalls.data, parallelRegs.data, selectedFilter]);
 
   return (

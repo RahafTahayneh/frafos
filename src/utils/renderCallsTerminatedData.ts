@@ -23,7 +23,7 @@ export const renderCallsTerminatedData = (
   selectedFilter: DateRangeFilterType
 ) => {
   const svg = d3.select("#callsTerminatedSvg");
-  svg.selectAll("*").remove(); // clear previous rendering
+  svg.selectAll("*").remove();
 
   const aggregatedData = aggregateData(data);
   const transformedData = transformData(aggregatedData);
@@ -34,7 +34,7 @@ export const renderCallsTerminatedData = (
     (svg.node() as SVGElement)?.getBoundingClientRect().height || 300;
   const radius = (Math.min(width, height) / 2) * 0.6;
 
-  const color = d3.scaleOrdinal(d3.schemeCategory10); // color scheme
+  const color = d3.scaleOrdinal(d3.schemeCategory10);
 
   const pie = d3
     .pie<{ message: string; count: number }>()
@@ -43,7 +43,7 @@ export const renderCallsTerminatedData = (
   const arc = d3
     .arc<any>()
     .innerRadius(radius * 0.5)
-    .outerRadius(radius); // Set innerRadius for the donut chart
+    .outerRadius(radius);
 
   const pieData = pie(transformedData);
 
@@ -51,7 +51,6 @@ export const renderCallsTerminatedData = (
     .append("g")
     .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-  // Draw the donut slices.
   const slices = g
     .selectAll("path")
     .data(pieData)
@@ -75,10 +74,8 @@ export const renderCallsTerminatedData = (
           <div>Percentage: ${percentage.toFixed(2)}%</div>
         `);
 
-      // Dim all slices.
       slices.style("opacity", 0.3);
 
-      // Highlight the current slice.
       d3.select(this).style("opacity", 1);
     })
     .on("mouseout", function () {
@@ -88,11 +85,10 @@ export const renderCallsTerminatedData = (
   const pieCenterX = width / 2;
   const spaceRightOfPie = width - (pieCenterX + radius);
 
-  const legendWidth = 170; // Estimated width of the legend, can be adjusted
-  const legendMargin = (spaceRightOfPie - legendWidth) / 2; // Center the legend in the available space
+  const legendWidth = 170;
+  const legendMargin = (spaceRightOfPie - legendWidth) / 2;
   const legendX = pieCenterX + radius + legendMargin;
 
-  // Add legend
   const legendG = svg
     .append("g")
     .attr("transform", `translate(${legendX}, 30)`)

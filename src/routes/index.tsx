@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"; // Switch is now Routes
+import { Route, Routes } from "react-router-dom";
 import { Analytics } from "../pages/Analytics";
 import { Calls } from "../pages/Calls";
 import { Home } from "../pages/Home";

@@ -12,7 +12,7 @@ export function renderSumOverTimeData(
   const margin = { top: 20, right: 35, bottom: 50, left: 50 };
   const svgWidth =
     (svg.node() as SVGElement)?.getBoundingClientRect().width || 600;
-  // Default to 600 if width cannot be determined
+
   const width = svgWidth - margin.left - margin.right;
   const height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -64,7 +64,6 @@ export function renderSumOverTimeData(
       throw new Error(`Unknown filter: ${selectedFilter}`);
   }
 
-  // Set scales
   const idealPixelSpacing = 100;
   const numberOfTicks = Math.floor(width / idealPixelSpacing);
   const x = d3.scaleTime().domain([minDate, maxDate]).range([0, width]);
@@ -89,17 +88,16 @@ export function renderSumOverTimeData(
 
   g.append("g").call(yAxis);
 
-  // Add bars
   g.selectAll(".bar")
     .data(data)
     .enter()
     .append("rect")
     .attr("class", "bar")
     .attr("fill", "rgb(255, 198, 88)")
-    .attr("x", (d) => x(new Date(d.key_as_string)) - barWidth / 2) // centering the bar
-    .attr("y", height) // Start at the bottom of the chart
+    .attr("x", (d) => x(new Date(d.key_as_string)) - barWidth / 2)
+    .attr("y", height)
     .attr("width", barWidth)
-    .attr("height", 0) // Start with a height of 0
+    .attr("height", 0)
     .on("mouseover", function (event, d) {
       d3.select("#tooltip-sum-over-time")
         .style("visibility", "visible")
@@ -115,10 +113,10 @@ export function renderSumOverTimeData(
         .style("visibility", "hidden")
         .style("display", "none");
     })
-    .transition() // Apply a transition to the bars
-    .duration(800) // Transition duration in milliseconds
-    .ease(d3.easeCubicInOut) // Use a cubic easing function for smoother transitions
-    .delay((d, i) => i * 50) // Add a staggered delay for each bar
-    .attr("y", (d) => y(d.time)) // Animate to the final y position
-    .attr("height", (d) => height - y(d.time)); // Animate the height to its final value
+    .transition()
+    .duration(800)
+    .ease(d3.easeCubicInOut)
+    .delay((d, i) => i * 50)
+    .attr("y", (d) => y(d.time))
+    .attr("height", (d) => height - y(d.time));
 }

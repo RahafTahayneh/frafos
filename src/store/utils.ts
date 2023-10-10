@@ -2,7 +2,6 @@ import {
   DATE_FILTER_OPTIONS,
   DateRangeFilterType,
 } from "../types/dateFilterTypes";
-import { HeatmapEventDataType } from "../types";
 import { DataFilterType } from "../types/dataFilterTypes";
 
 type FilterableDataType = {

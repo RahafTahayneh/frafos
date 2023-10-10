@@ -1,8 +1,8 @@
 import React from "react";
-import { IoInformationCircle, IoClose } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 
 interface ModalProps {
-  type: "info" | "error" | "warning"; // You can add more types if needed
+  type: "info" | "error" | "warning";
   title: string;
   onClose: () => void;
   children: React.ReactNode;

@@ -22,7 +22,6 @@ for (let i = 0; i < 48; i++) {
 
   const typeData = types
     .map((type) => {
-      // Occasionally set the count to 0 to simulate real-world gaps in the data
       const doc_count =
         Math.random() > 0.8 ? 0 : Math.floor(Math.random() * 10);
       return {
@@ -30,7 +29,7 @@ for (let i = 0; i < 48; i++) {
         doc_count,
       };
     })
-    .filter((t) => t.doc_count !== 0); // Remove types with 0 count to reflect in the dummy data
+    .filter((t) => t.doc_count !== 0);
 
   buckets.push({
     key_as_string: formattedTime,

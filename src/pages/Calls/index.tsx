@@ -1,11 +1,11 @@
 import { useEffect } from "react";
+import { IoInformationCircleOutline } from "react-icons/io5";
 import { useDataStore } from "../../store/DataContext";
 import { Wrapper } from "../../components/Wrapper";
 import { renderEventsOverTimeGraph } from "../../utils/renderEventsOverTimeData";
 import { renderSumOverTimeData } from "../../utils/renderSumDurationsData";
 import { renderCallsSuccessData } from "../../utils/renderCallsSuccessData";
 import { renderCallsTerminatedData } from "../../utils/renderCallsTerminatedData";
-import { IoInformationCircleOutline } from "react-icons/io5";
 import Card from "../../components/Card";
 
 export const Calls = () => {
@@ -70,7 +70,7 @@ export const Calls = () => {
 
     window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize); // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
   }, [
     callsSuccessTime.data,
     callsTerminatedTime.data,

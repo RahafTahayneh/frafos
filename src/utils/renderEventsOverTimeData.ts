@@ -17,7 +17,7 @@ export function renderEventsOverTimeGraph(
   const margin = { top: 20, right: 35, bottom: 50, left: 50 };
   const svgWidth =
     (svg.node() as SVGElement)?.getBoundingClientRect().width || 600;
-  // Default to 600 if width cannot be determined
+
   const width = svgWidth - margin.left - margin.right;
   const height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -71,7 +71,6 @@ export function renderEventsOverTimeGraph(
       throw new Error(`Unknown filter: ${selectedFilter}`);
   }
 
-  // Set scales
   const idealPixelSpacing = 100;
   const numberOfTicks = Math.floor(width / idealPixelSpacing);
   const x = d3.scaleTime().domain([minDate, maxDate]).range([0, width]);
@@ -96,17 +95,16 @@ export function renderEventsOverTimeGraph(
 
   g.append("g").call(yAxis);
 
-  // Add bars
   g.selectAll(".bar")
     .data(data)
     .enter()
     .append("rect")
     .attr("class", "bar")
-    .attr("x", (d) => x(new Date(d.key_as_string)) - barWidth / 2) // centering the bar
-    .attr("y", height) // Start at the bottom of the chart
+    .attr("x", (d) => x(new Date(d.key_as_string)) - barWidth / 2)
+    .attr("y", height)
     .attr("width", barWidth)
-    .attr("height", 0) // Start with a height of 0
-    .attr("fill", (d) => colorScale(d.type)) // Color bars based on event type
+    .attr("height", 0)
+    .attr("fill", (d) => colorScale(d.type))
     .on("mouseover", function (event, d) {
       d3.select("#tooltip-events-over-time")
         .style("visibility", "visible")
@@ -122,18 +120,16 @@ export function renderEventsOverTimeGraph(
         .style("visibility", "hidden")
         .style("display", "none");
     })
-    .transition() // Apply a transition to the bars
-    .duration(800) // Transition duration in milliseconds
-    .ease(d3.easeCubicInOut) // Use a cubic easing function for smoother transitions
-    .delay((d, i) => i * 50) // Add a staggered delay for each bar
-    .attr("y", (d) => y(d.count)) // Animate to the final y position
-    .attr("height", (d) => height - y(d.count)); // Animate the height to its final value
+    .transition()
+    .duration(800)
+    .ease(d3.easeCubicInOut)
+    .delay((d, i) => i * 50)
+    .attr("y", (d) => y(d.count))
+    .attr("height", (d) => height - y(d.count));
 
-  // Define the spacing and size for legend items
-  const legendRectSize = 10; // defines the size of the colored squares in legend
-  const legendSpacing = 4; // defines spacing between squares
+  const legendRectSize = 10;
+  const legendSpacing = 4;
 
-  // Create a group for the legend items
   const legend = svg
     .selectAll(".legend")
     .data(legendData)
@@ -142,12 +138,11 @@ export function renderEventsOverTimeGraph(
     .attr("class", "legend")
     .attr("transform", (d, i) => {
       const height = legendRectSize + legendSpacing;
-      const horz = width + margin.left - legendRectSize - 50; // modified horizontal position
-      const vert = i * height + legendSpacing; // modified vertical position
+      const horz = width + margin.left - legendRectSize - 50;
+      const vert = i * height + legendSpacing;
       return `translate(${horz},${vert})`;
     });
 
-  // Add the colored rectangles
   legend
     .append("rect")
     .attr("width", legendRectSize)
@@ -155,12 +150,11 @@ export function renderEventsOverTimeGraph(
     .style("fill", colorScale)
     .style("stroke", colorScale);
 
-  // Add the text labels
   legend
     .append("text")
     .style("font-size", 11)
-    .attr("x", legendRectSize + legendSpacing) // position to the right of the colored rectangles
-    .attr("y", legendRectSize / 2) // vertically center the text
-    .attr("dy", "0.35em") // adjust to align the middle of the text with the middle of the colored rectangles
+    .attr("x", legendRectSize + legendSpacing)
+    .attr("y", legendRectSize / 2)
+    .attr("dy", "0.35em")
     .text((d) => d);
 }

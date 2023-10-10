@@ -13,7 +13,7 @@
     align-items: center;
     border-radius: 8px;
     border: 1px solid lightgray;
-    background-color: $white; // light gray
+    background-color: $white;
     padding: 12px;
     cursor: pointer;
     font-size: 12px;
@@ -23,21 +23,21 @@
       position: absolute;
       top: -8px;
       right: -8px;
-      background-color: red; // You can choose any color you like
+      background-color: red;
       color: white;
-      border-radius: 50%; // To make it round
+      border-radius: 50%;
       font-size: 10px;
       padding: 4px;
-      min-width: 12px; // To ensure the badge has a minimum size
+      min-width: 12px;
       text-align: center;
     }
 
     span {
-      margin-left: 8px; // gap between icon and text
+      margin-left: 8px;
     }
 
     &:hover {
-      background-color: #f3f3f3; // a bit darker on hover
+      background-color: #f3f3f3;
     }
   }
   .search-input-wrapper {
@@ -83,7 +83,7 @@
     background-color: white;
     padding: 16px;
     border: 1px solid $gray-500;
-    top: 100%; // to position it under the filter icon
+    top: 100%;
     right: 0;
     margin-top: 4px;
 
@@ -104,8 +104,8 @@
     .options-list {
       display: flex;
       align-items: center;
-      flex-wrap: wrap; // Add this line to allow items to wrap
-      gap: 8px; // Add some gap for wrapped items
+      flex-wrap: wrap;
+      gap: 8px;
       padding: 16px;
     }
 
@@ -166,7 +166,7 @@
       }
 
       .primary-btn {
-        background-color: $primary-color; // replace with your primary color
+        background-color: $primary-color;
         color: white;
         border: none;
         padding: 8px 16px;

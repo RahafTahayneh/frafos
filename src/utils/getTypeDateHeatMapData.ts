@@ -12,7 +12,7 @@ export function renderHeatmap(
   const margin = { top: 20, right: 20, bottom: 30, left: 100 };
   const svgWidth =
     (svg.node() as SVGElement)?.getBoundingClientRect().width || 600;
-  // Default to 600 if width cannot be determined
+
   const width = svgWidth - margin.left - margin.right;
 
   const baseHeightPerBand = 30;
@@ -79,8 +79,8 @@ export function renderHeatmap(
       throw new Error(`Unknown filter: ${selectedFilter}`);
   }
 
-  const basicIntervalWidth = 100; // Decide on a width for a single interval
-  const numberOfIntervals = Math.floor(width / basicIntervalWidth); // Determine the number of intervals based on x-axis width
+  const basicIntervalWidth = 100;
+  const numberOfIntervals = Math.floor(width / basicIntervalWidth);
 
   const timeScale = d3.scaleTime().domain([minDate, maxDate]).range([0, width]);
   const intervalSize =
@@ -117,7 +117,7 @@ export function renderHeatmap(
     )
     .call(d3.axisBottom(x))
     .append("text")
-    .attr("y", 30) // Adjust this offset to position the label
+    .attr("y", 30)
     .attr("x", width / 2)
     .attr("dy", "0.71em")
     .style("text-anchor", "middle")
@@ -128,7 +128,7 @@ export function renderHeatmap(
     .call(d3.axisLeft(y))
     .append("text")
     .attr("transform", "rotate(-90)")
-    .attr("y", 6) // Adjust these offsets to position the label
+    .attr("y", 6)
     .attr("dy", "0.71em")
     .attr("x", -totalHeight / 2 + margin.top + margin.bottom)
     .style("text-anchor", "middle")
@@ -136,7 +136,6 @@ export function renderHeatmap(
 
   data.forEach((d) => {
     if (d.count > 0) {
-      // Only plot if count is greater than 0
       g.append("rect")
         .attr("x", timeScale(new Date(d.key_as_string)) - x.bandwidth() / 2)
         .attr("y", y(d.type) || 0)
@@ -147,7 +146,7 @@ export function renderHeatmap(
         .attr("ry", 4)
         .on("mouseover", function (event) {
           const tooltip = d3.select("#tooltip");
-          const xPosition = event.pageX + 10; // Adjust these values to position the tooltip
+          const xPosition = event.pageX + 10;
           const yPosition = event.pageY + 10;
 
           tooltip

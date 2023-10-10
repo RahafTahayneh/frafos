@@ -28,7 +28,7 @@ export const Analytics = () => {
 
     window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize); // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
   }, [macroEventsOverTime.data, selectedFilter.dateFilter]);
 
   return (

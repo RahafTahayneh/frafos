@@ -5,7 +5,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 interface DropdownProps {
   options: string[];
   label: string;
-  onSelect?: (selectedOption: string) => void; // <-- Add this line
+  onSelect?: (selectedOption: string) => void;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ options, label, onSelect }) => {

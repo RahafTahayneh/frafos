@@ -27,7 +27,7 @@ export const renderMacroEventsTypesData = (
   selectedFilter: DateRangeFilterType
 ) => {
   const svg = d3.select("#typesSvg");
-  svg.selectAll("*").remove(); // clear previous rendering
+  svg.selectAll("*").remove();
 
   const width =
     (svg.node() as SVGElement)?.getBoundingClientRect().width || 300;
@@ -35,7 +35,6 @@ export const renderMacroEventsTypesData = (
     (svg.node() as SVGElement)?.getBoundingClientRect().height || 300;
   const aggregatedData = aggregateCallSuccessData(data);
 
-  // Adjust the radius to make the pie take the full width or height (whichever is smaller)
   const radius = (Math.min(width, height) / 2) * 0.6;
 
   const color = d3
@@ -54,7 +53,6 @@ export const renderMacroEventsTypesData = (
     .append("g")
     .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-  // Draw the pie slices.
   const slices = g
     .selectAll("path")
     .data(pieData)
@@ -77,27 +75,23 @@ export const renderMacroEventsTypesData = (
           <div>Percentage: ${percentage.toFixed(2)}%</div>
         `);
 
-      // Dim all slices.
       slices.style("opacity", 0.3);
 
-      // Highlight the current slice.
       d3.select(this).style("opacity", 1);
     })
     .on("mouseout", function () {
       d3.select("#tooltip-macro-types").style("visibility", "hidden");
 
-      // Reset opacity for all slices.
       slices.style("opacity", 1);
     });
 
   const pieCenterX = width / 2;
   const spaceRightOfPie = width - (pieCenterX + radius);
 
-  const legendWidth = 150; // Estimated width of the legend, can be adjusted
-  const legendMargin = (spaceRightOfPie - legendWidth) / 2; // Center the legend in the available space
+  const legendWidth = 150;
+  const legendMargin = (spaceRightOfPie - legendWidth) / 2;
   const legendX = pieCenterX + radius + legendMargin;
 
-  // Add legend
   const legendG = svg
     .append("g")
     .attr("transform", `translate(${legendX}, 30)`)

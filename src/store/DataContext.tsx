@@ -63,8 +63,8 @@ type DataStore = {
   callsTerminatedTime: ChartData<CallTerminatedType[]>;
 
   refreshData: () => void;
-  selectedFilter: DataFilterType; // New field
-  setSelectedFilter: (filterType: DataFilterType) => void; // New field
+  selectedFilter: DataFilterType;
+  setSelectedFilter: (filterType: DataFilterType) => void;
 
   loading: boolean;
 };

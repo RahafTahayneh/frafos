@@ -1,7 +1,6 @@
 import * as d3 from "d3";
 import React, { useEffect, useRef } from "react";
-import { HeatmapEventDataType } from "../../types"; // Adjust the path if necessary
-import { EventType } from "../../types/eventType";
+import { HeatmapEventDataType } from "../../types";
 
 interface HeatmapProps {
   data: HeatmapEventDataType[];
@@ -58,7 +57,6 @@ const Heatmap: React.FC<HeatmapProps> = ({ data }) => {
       .attr("height", y.bandwidth())
       .attr("fill", (d) => z(d.count));
 
-    // Tooltip handling
     const tooltip = d3.select("#tooltip");
 
     svg
@@ -77,10 +75,9 @@ const Heatmap: React.FC<HeatmapProps> = ({ data }) => {
         tooltip.style("display", "none");
       });
 
-    // Resize SVG to fit window
     function resize() {
       const node = svg.node();
-      if (!node) return; // return early if node is null
+      if (!node) return;
 
       const newWidth =
         ((node as SVGSVGElement).parentNode as Element).getBoundingClientRect()
@@ -102,7 +99,7 @@ const Heatmap: React.FC<HeatmapProps> = ({ data }) => {
     resize();
 
     return () => {
-      d3.select(window).on("resize", null); // Clean up the resize listener when component unmounts
+      d3.select(window).on("resize", null);
     };
   }, [data]);
 

@@ -142,30 +142,27 @@ export function renderParallelCall(
 
   const uniqueLabels = Array.from(new Set(data.map((d) => d.label)));
   const legendSpace = 20;
-  const legendPositionX = width * 0.9; // 90% of the width
+  const legendPositionX = width * 0.9;
 
-  const legendCircleRadius = 8; // Adjust as needed
-  const legendCircleOffset = 15; // Space between circle and text
+  const legendCircleRadius = 8;
+  const legendCircleOffset = 15;
 
   uniqueLabels.forEach((label, index) => {
     const legendTextY = margin.top + index * legendSpace;
 
-    // Toggle visibility function
     const toggleVisibility = function () {
       const isActive = d3.select("." + label).style("opacity") === "1";
       d3.selectAll("." + label).style("opacity", isActive ? "0" : "1");
     };
 
-    // Appending circle for each label
     svg
       .append("circle")
       .attr("cx", legendPositionX - legendCircleOffset)
       .attr("cy", legendTextY)
       .attr("r", legendCircleRadius)
       .style("fill", color(label))
-      .on("click", toggleVisibility); // Adding click action to circle
+      .on("click", toggleVisibility);
 
-    // Adjusting label text position and style
     svg
       .append("text")
       .attr("x", legendPositionX)
@@ -175,6 +172,6 @@ export function renderParallelCall(
       .style("fill", color(label))
       .style("font-size", "12px")
       .style("font-weight", "500")
-      .on("click", toggleVisibility); // Using the same click action for text
+      .on("click", toggleVisibility);
   });
 }

@@ -39,8 +39,8 @@
     padding: 16px;
     text-decoration: none !important;
     &.active-route {
-      color: $primary-color; // Or any other styles you want for the active route
-      background-color: $gray-200; // Optional: highlight with a background
+      color: $primary-color;
+      background-color: $gray-200;
     }
   }
 

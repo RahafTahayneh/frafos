@@ -1,6 +1,6 @@
 import Dropdown from "../components/Dropdown";
 import React from "react";
-import { createRoot } from "react-dom"; // <-- Updated import
+import { createRoot } from "react-dom";
 
 let container: HTMLDivElement | null = null;
 
@@ -18,7 +18,7 @@ afterEach(() => {
 
 it("renders without crashing", () => {
   if (container) {
-    const root = createRoot(container); // <-- Use the updated API
+    const root = createRoot(container);
     root.render(
       <Dropdown options={["Option 1", "Option 2"]} label="Test Label" />
     );

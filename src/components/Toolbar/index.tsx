@@ -48,7 +48,7 @@ const defaultCheckedOptions = Object.fromEntries(
 const Toolbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [searchValue, setSearchValue] = useState(""); // Add this line for search value
+  const [searchValue, setSearchValue] = useState("");
 
   const [checkedOptions, setCheckedOptions] = useState<Record<string, boolean>>(
     defaultCheckedOptions
@@ -71,12 +71,11 @@ const Toolbar = () => {
     ) as DateRangeFilterType;
 
     if (filterType === "custom") {
-      // Open your modal here
       openModal();
     } else {
       const updatedFilter: DataFilterType = {
-        ...selectedFilter, // Spread the existing state to maintain other values
-        dateFilter: filterType, // Update only the date filter
+        ...selectedFilter,
+        dateFilter: filterType,
       };
       setSelectedFilter(updatedFilter);
     }
@@ -88,8 +87,8 @@ const Toolbar = () => {
 
   const onApply = () => {
     setSelectedFilter({
-      dateFilter: selectedFilter.dateFilter, // Keep the existing date filter
-      eventTypeFilter: checkedOptions, // Update with the current checked options
+      dateFilter: selectedFilter.dateFilter,
+      eventTypeFilter: checkedOptions,
     });
     setIsVisible(false);
   };
@@ -151,12 +150,10 @@ const Toolbar = () => {
                 </div>
               </div>
 
-              {/* Close button */}
               <button onClick={toggleVisibility} className="close-btn">
                 X
               </button>
 
-              {/* Reset and Apply buttons */}
               <div className="button-group">
                 <button onClick={onReset} className="ternary-btn">
                   Reset

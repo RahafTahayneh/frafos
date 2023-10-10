@@ -18,9 +18,9 @@
     list-style: none;
     padding: 0;
     position: absolute;
-    top: 100%; // position it right under the parent div
+    top: 100%;
     left: 0;
-    z-index: 10; // This will ensure the dropdown is rendered above other elements
+    z-index: 10;
 
     li {
       padding: 8px 16px;
