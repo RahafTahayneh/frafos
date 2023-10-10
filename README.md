@@ -13,7 +13,7 @@
     <a href="https://github.com/RahafTahayneh/propic/issues/new/choose">Request Feature</a>
 </p>
 
-### Introducing FraFoa ✌️
+### Introducing FraFoa
 
 FraFos Monitor provides administrators with an aggregated view of user activity based on usage reporting data collected, This highly interactive, near real-time view can be used for trending, analysis of both short-term and long-term use patterns, troubleshooting, auditing server policies and identifying misconducting users.
 
