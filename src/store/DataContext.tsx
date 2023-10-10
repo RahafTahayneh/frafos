@@ -65,6 +65,8 @@ type DataStore = {
   refreshData: () => void;
   selectedFilter: DataFilterType; // New field
   setSelectedFilter: (filterType: DataFilterType) => void; // New field
+
+  loading: boolean;
 };
 
 const DataContext = createContext<DataStore | undefined>(undefined);
@@ -80,6 +82,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [heatmap, setHeatmap] = useState<ChartData<HeatmapEventDataType[]>>({
     data: [],
   });
+
+  const [loading, setIsLoading] = useState<boolean>(false);
 
   const [parallelCalls, setParallelCalls] = useState<
     ChartData<ParallelCallsType[]>
@@ -129,6 +133,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const activeEvents = getActiveEventTypes(selectedFilter);
 
   const refreshData = useCallback(() => {
+    setIsLoading(true);
     const filteredHeatmap = filterDataByDate(
       dateTypeHeapMap.data.map((element) => ({
         ...element,
@@ -201,6 +206,14 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       setHeatmap({
         data: filterByEventType(filteredHeatmap, activeEvents),
       });
+
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [selectedFilter]);
 
   useEffect(() => {
@@ -210,8 +223,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   return (
     <DataContext.Provider
       value={{
+        loading,
         heatmap,
-
         refreshData,
         parallelCalls,
         parallelRegs,

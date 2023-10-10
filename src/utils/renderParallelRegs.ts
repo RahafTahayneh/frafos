@@ -9,7 +9,7 @@ export function renderParallelRegs(
   const svgElement = document.getElementById("parallel-regs");
   if (!svgElement || !(svgElement instanceof SVGSVGElement)) {
     throw new Error(
-      "The element with id 'parallel-calls' is not an SVG element or does not exist."
+      "The element with id 'parallel-regs' is not an SVG element or does not exist."
     );
   }
   const svg = d3.select(svgElement);

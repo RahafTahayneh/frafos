@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useDataStore } from "../../store/DataContext";
-import { Collapse } from "../../components/Collapse";
+import { Wrapper } from "../../components/Wrapper";
 import { renderMacroEventsTypesData } from "../../utils/renderEventsTypesMicrData";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Card from "../../components/Card";
 
 export const Analytics = () => {
-  const { macroEventsOverTime, selectedFilter } = useDataStore();
+  const { macroEventsOverTime, selectedFilter, loading } = useDataStore();
 
   useEffect(() => {
     if (macroEventsOverTime.data.length > 0) {
@@ -40,13 +40,14 @@ export const Analytics = () => {
         <Card label="Distinct IP" value="15" />
       </div>
       <div className="cards-container">
-        <Collapse
+        <Wrapper
           title="Types"
           isNoData={macroEventsOverTime.data.length === 0}
+          loading={loading}
         >
           <div id="tooltip-macro-types" className="tooltip"></div>
           <svg width="100%" height="300" id="typesSvg"></svg>
-        </Collapse>
+        </Wrapper>
       </div>
     </div>
   );

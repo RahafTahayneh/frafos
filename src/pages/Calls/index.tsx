@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useDataStore } from "../../store/DataContext";
-import { Collapse } from "../../components/Collapse";
+import { Wrapper } from "../../components/Wrapper";
 import { renderEventsOverTimeGraph } from "../../utils/renderEventsOverTimeData";
 import { renderSumOverTimeData } from "../../utils/renderSumDurationsData";
 import { renderCallsSuccessData } from "../../utils/renderCallsSuccessData";
 import { renderCallsTerminatedData } from "../../utils/renderCallsTerminatedData";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Card from "../../components/Card";
-import { wrap } from "module";
 
 export const Calls = () => {
   const {
@@ -97,22 +96,22 @@ export const Calls = () => {
         </div>
       </div>
       <div className="row-data">
-        <Collapse
+        <Wrapper
           title="Events Over Time"
           isNoData={eventsOverTime.data.length === 0}
         >
           <div id="tooltip-events-over-time" className="tooltip"></div>
           <svg width="100%" height="300" id="eventsOverTimeSVG"></svg>
-        </Collapse>
+        </Wrapper>
       </div>
       <div className="row-data">
-        <Collapse
+        <Wrapper
           title="SUM DURATION OVER TIME"
           isNoData={sumOverTime.data.length === 0}
         >
           <div id="tooltip-sum-over-time" className="tooltip"></div>
           <svg width="100%" height="300" id="sumOverTimeSVG"></svg>
-        </Collapse>
+        </Wrapper>
       </div>
       <div
         style={{
@@ -127,25 +126,25 @@ export const Calls = () => {
         }}
       >
         <div className="collapse-svg">
-          <Collapse
+          <Wrapper
             title="CALLS SUCCESS RATIO"
             isNoData={callsSuccessTime.data.length === 0}
           >
             <div id="tooltip-calls-success" className="tooltip"></div>
             <svg width={"100%"} height="300" id="callsSuccessSvg"></svg>
-          </Collapse>
+          </Wrapper>
         </div>
         <div
           className="collapse-svg"
           style={{ marginTop: 16, marginBottom: 16 }}
         >
-          <Collapse
+          <Wrapper
             title="CALLS TERMINATED RATIO"
             isNoData={callsTerminatedTime.data.length === 0}
           >
             <div id="tooltip-calls-terminated" className="tooltip"></div>
             <svg width={"100%"} height="300" id="callsTerminatedSvg"></svg>
-          </Collapse>
+          </Wrapper>
         </div>
       </div>
     </div>

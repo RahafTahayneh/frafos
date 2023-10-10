@@ -1,27 +1,29 @@
 import { useEffect } from "react";
 import { useDataStore } from "../../store/DataContext";
 import { renderHeatmap } from "../../utils/getTypeDateHeatMapData";
-import { Collapse } from "../../components/Collapse";
+import { Wrapper } from "../../components/Wrapper";
 import Card from "../../components/Card";
 import { renderParallelCall } from "../../utils/renderParallelCalls";
 import { renderParallelRegs } from "../../utils/renderParallelRegs";
 import { IoInformationCircleOutline } from "react-icons/io5";
 
 export const Home = () => {
-  const { heatmap, parallelCalls, parallelRegs, selectedFilter } =
+  const { heatmap, parallelCalls, parallelRegs, selectedFilter, loading } =
     useDataStore();
 
   useEffect(() => {
-    if (heatmap.data.length > 0) {
-      renderHeatmap(heatmap.data, selectedFilter.dateFilter);
+    if (!loading) {
+      if (heatmap.data.length > 0) {
+        renderHeatmap(heatmap.data, selectedFilter.dateFilter);
+      }
+      if (parallelCalls.data.length > 0) {
+        renderParallelCall(parallelCalls.data, selectedFilter.dateFilter);
+      }
+      if (parallelRegs.data.length > 0) {
+        renderParallelRegs(parallelRegs.data, selectedFilter.dateFilter);
+      }
     }
-    if (parallelCalls.data.length > 0) {
-      renderParallelCall(parallelCalls.data, selectedFilter.dateFilter);
-    }
-    if (parallelRegs.data.length > 0) {
-      renderParallelRegs(parallelRegs.data, selectedFilter.dateFilter);
-    }
-  }, [heatmap, parallelCalls.data, parallelRegs.data, selectedFilter]);
+  }, [heatmap, loading, parallelCalls.data, parallelRegs.data, selectedFilter]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,7 +70,8 @@ export const Home = () => {
         </div>
       </div>
       <div>
-        <Collapse
+        <Wrapper
+          loading={loading}
           title="Type Date Heatmap"
           isNoData={heatmap.data.length === 0}
         >
@@ -78,12 +81,13 @@ export const Home = () => {
           </div>
 
           <svg id="heatmap" width={"100%"} height={300}></svg>
-        </Collapse>
+        </Wrapper>
       </div>
 
       <div className="row-data">
         <div style={{ flex: 1 }}>
-          <Collapse
+          <Wrapper
+            loading={loading}
             title="Parallel Calls"
             isNoData={parallelRegs.data.length === 0}
           >
@@ -93,7 +97,7 @@ export const Home = () => {
             </div>
 
             <svg id="parallel-calls" width="100%" height={300}></svg>
-          </Collapse>
+          </Wrapper>
         </div>
         <div>
           <Card label="Actual Calls" value="0" />
@@ -103,7 +107,8 @@ export const Home = () => {
       <div>
         <div className="row-data">
           <div style={{ flex: 1 }}>
-            <Collapse
+            <Wrapper
+              loading={loading}
               title="Parallel Regs"
               isNoData={heatmap.data.length === 0}
             >
@@ -113,7 +118,7 @@ export const Home = () => {
               </div>
 
               <svg id="parallel-regs" width="100%" height={300}></svg>
-            </Collapse>
+            </Wrapper>
           </div>
           <div>
             <Card label="Actual Regs" value="0" />
