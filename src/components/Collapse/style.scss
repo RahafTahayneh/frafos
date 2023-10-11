@@ -23,6 +23,7 @@
   background-color: $gray-500;
   border-radius: 50%; // Make it circular
   padding: 8px;
+  font-size: 32px;
   transition: transform 0.3s ease; // Rotate smoothly
 }
 
@@ -44,6 +45,8 @@
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; // Smooth transition
   max-height: 210px; // 70% of 300px
   opacity: 1;
+
+  margin-bottom: 16px;
 }
 
 .collapse-content.collapsed {

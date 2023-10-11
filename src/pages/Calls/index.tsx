@@ -15,6 +15,7 @@ export const Calls = () => {
     callsSuccessData,
     callsTerminatedData,
     selectedFilter,
+    loading,
   } = useDataStore();
 
   useEffect(() => {

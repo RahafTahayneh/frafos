@@ -5,6 +5,20 @@
   justify-content: flex-start;
   width: 100%;
 
+  .row-info {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: space-between;
+  }
+
   .tooltip {
     z-index: 1000;
     position: absolute;

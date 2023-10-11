@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
-import { FaChevronDown } from "react-icons/fa"; // Import the arrow icon
+import { IoMdArrowDropdownCircle } from "react-icons/io"; // Import the arrow icon
 
-export const Wrapper = ({
+export const Collapse = ({
   title,
   children,
   defaultCollapsed = true,
@@ -9,7 +9,7 @@ export const Wrapper = ({
   title: string;
   children: ReactNode;
 
-  defaultCollapsed: boolean;
+  defaultCollapsed?: boolean;
 }) => {
   const [collapse, setCollapsed] = useState(defaultCollapsed);
 
@@ -17,9 +17,7 @@ export const Wrapper = ({
     <div className="collapse-container">
       <div className="collapse-header" onClick={() => setCollapsed(!collapse)}>
         <div>{title}</div>
-        <FaChevronDown
-          className={`arrow-icon ${collapse ? "collapsed" : ""}`}
-        />
+        <IoMdArrowDropdownCircle size={20} />
       </div>
       <div className={`collapse-content ${collapse ? "collapsed" : ""}`}>
         {children}

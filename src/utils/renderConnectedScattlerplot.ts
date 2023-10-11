@@ -80,6 +80,10 @@ export function renderUnifiedScatterplot(
     isParallelCallsType(d) ? d.c_count : d.r_count
   );
 
+  const maxYTick = Math.ceil(maxCount || 5);
+
+  const yTicks = Array.from({ length: maxYTick + 1 }, (_, i) => i);
+
   const y = d3
     .scaleLinear()
     .domain([0, maxCount || 5])
@@ -96,6 +100,11 @@ export function renderUnifiedScatterplot(
     scatterPlotId === "parallel-calls"
       ? d3.scaleOrdinal(d3.schemeSet2)
       : d3.scaleOrdinal(["rgb(165, 202, 71)", "rgb(202, 165, 71)"]);
+
+  svg
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`)
+    .call(d3.axisLeft(y).tickValues(yTicks));
 
   svg
     .append("g")

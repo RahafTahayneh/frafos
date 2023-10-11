@@ -1,6 +1,7 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import { BiErrorCircle } from "react-icons/bi";
 import Loader from "../Loading";
+import Modal from "../Modal";
 
 export const Wrapper = ({
   title,
@@ -14,6 +15,7 @@ export const Wrapper = ({
   isNoData: boolean;
   loading?: boolean;
 }) => {
+  const [openDetailsModal, setIsOpenDetailsModal] = useState(false);
   return (
     <div
       className="wrapper-container"
@@ -21,6 +23,12 @@ export const Wrapper = ({
     >
       <div className="wrapper-header">
         <div>{title}</div>
+        <div
+          className="view-details"
+          onClick={() => setIsOpenDetailsModal(true)}
+        >
+          View details
+        </div>
       </div>
       {loading ? (
         <Loader />
@@ -42,6 +50,18 @@ export const Wrapper = ({
             }
           })()}
         </div>
+      )}
+
+      {openDetailsModal && (
+        <Modal
+          type="info"
+          title="Details about Graph"
+          onClose={() => setIsOpenDetailsModal(false)}
+        >
+          <div style={{ fontSize: 14 }}>
+            Review more details about the data graph.
+          </div>
+        </Modal>
       )}
     </div>
   );
