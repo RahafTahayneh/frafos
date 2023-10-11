@@ -36,13 +36,6 @@ const {
   eventsOverTimeDummyData,
 } = dummyData;
 
-const filterByEventType = (
-  data: HeatmapEventDataType[],
-  eventTypes: EventType[]
-): HeatmapEventDataType[] => {
-  return data.filter((item) => eventTypes.includes(item.type));
-};
-
 const defaultEventTypeFilter: EventTypeFilter = Object.values(EventType).reduce(
   (acc, curr) => {
     acc[curr] = false;
