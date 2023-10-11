@@ -1,10 +1,10 @@
-.collapse-container {
+.wrapper-container {
   border: 1px solid $gray-500;
   border-radius: 16px;
   background-color: $white;
 }
 
-.collapse-header {
+.wrapper-header {
   padding: 16px;
   cursor: pointer;
   display: flex;
@@ -16,7 +16,7 @@
   font-weight: 600;
 }
 
-.collapse-content {
+.wrapper-content {
   padding: 10px;
   display: flex;
   flex-direction: column;

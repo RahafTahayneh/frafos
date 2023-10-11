@@ -16,16 +16,16 @@ export const Wrapper = ({
 }) => {
   return (
     <div
-      className="collapse-container"
+      className="wrapper-container"
       style={{ width: "100%", height: isNoData ? "300px" : "auto" }}
     >
-      <div className="collapse-header">
+      <div className="wrapper-header">
         <div>{title}</div>
       </div>
       {loading ? (
         <Loader />
       ) : (
-        <div className="collapse-content">
+        <div className="wrapper-content">
           {(() => {
             switch (true) {
               case isNoData:
