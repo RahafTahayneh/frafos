@@ -5,6 +5,7 @@ import { renderMacroEventsTypesData } from "../../utils/renderEventsTypesMicrDat
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Card from "../../components/Card";
 import { Collapse } from "../../components/Collapse";
+import TableComponent from "../../components/Table";
 
 export const Analytics = () => {
   const { macroTypesData, selectedFilter, loading } = useDataStore();
@@ -56,8 +57,8 @@ export const Analytics = () => {
         <div style={{ width: "45%" }} className="cards">
           <div>
             <Collapse title="From UA">
-              <div style={{ fontSize: 14, color: "#303a42" }}>
-                Data to be displayed here
+              <div style={{ fontSize: 14, color: "#303a42", width: "100%" }}>
+                <TableComponent />
               </div>
             </Collapse>
           </div>

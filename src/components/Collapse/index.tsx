@@ -14,8 +14,8 @@ export const Collapse = ({
   const [collapse, setCollapsed] = useState(defaultCollapsed);
 
   return (
-    <div className="collapse-container">
-      <div className="collapse-header" onClick={() => setCollapsed(!collapse)}>
+    <div className="collapse-container" onClick={() => setCollapsed(!collapse)}>
+      <div className="collapse-header">
         <div>{title}</div>
         <IoMdArrowDropdownCircle size={20} />
       </div>

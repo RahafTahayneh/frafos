@@ -1,0 +1,26 @@
+.custom-table {
+  border: 1px solid lightgray;
+  border-radius: 16px;
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background-color: #dad8d8;
+    padding: 8px;
+  }
+
+  td {
+    padding: 8px;
+    border-top: 1px solid lightgray;
+    color: #303a42;
+
+    &.percentage {
+      color: gray;
+    }
+  }
+
+  th,
+  td {
+    text-align: left;
+  }
+}
