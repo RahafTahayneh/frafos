@@ -5,7 +5,7 @@
       "key": 1696695345000,
       "c_count": 102,
       "message": "success",
-      "type": "call-attempt",
+      "type": "call-end",
       "count": 0
     },
     {
@@ -21,7 +21,7 @@
       "key": 1696704958056,
       "c_count": 30,
       "message": "unauthorized",
-      "type": "call-attempt",
+      "type": "call-end",
       "count": 0
     },
     {
@@ -29,7 +29,7 @@
       "key": 1696784112032,
       "c_count": 120,
       "message": "forbidden",
-      "type": "call-attempt",
+      "type": "call-end",
       "count": 0
     },
     {
@@ -45,7 +45,7 @@
       "key": 1696521778020,
       "c_count": 4,
       "message": "ringing",
-      "type": "call-attempt",
+      "type": "call-end",
       "count": 0
     }
   ]

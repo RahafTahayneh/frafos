@@ -19,18 +19,22 @@ import {
   SumOverTimeType,
   HeatmapEventDataType,
 } from "../types";
-import dateTypeHeapMap from "../data/dummyTypeDateHeatMap.json";
-import parallelCallsData from "../data/dummyParallelCall.json";
-import parallelRegsData from "../data/dummyParallelRegs.json";
-import sumOverTimeData from "../data/dummySumDurationOverTime.json";
-import eventsOverTimeData from "../data/dummyEventsDataType.json";
-import dummyMacroEventsOverTimeData from "../data/dummyMacroEventsDataType.json";
-import dummyCallsSuccessData from "../data/dummyCallSuccessRatioData.json";
-import dummyCallsTerminatedData from "../data/dummyCallTerminatedDAta.json";
 import { EventType } from "../types/eventType";
+import dummyData from "../data/dummyData";
 
 import { DataFilterType, EventTypeFilter } from "../types/dataFilterTypes";
-import { filterDataByDate } from "./utils";
+import { filterData } from "./utils";
+
+const {
+  eventsHeatmapDummyData,
+  callsSuccessDummyData,
+  callsTerminatedDummyData,
+  parallelCallsDummyData,
+  parallelRegsDummyData,
+  sumDurationDummyData,
+  macroTypesDummyData,
+  eventsOverTimeDummyData,
+} = dummyData;
 
 const filterByEventType = (
   data: HeatmapEventDataType[],
@@ -53,14 +57,14 @@ const initialFilter: DataFilterType = {
 };
 
 type DataStore = {
-  heatmap: ChartData<HeatmapEventDataType[]>;
-  parallelCalls: ChartData<ParallelCallsType[]>;
-  parallelRegs: ChartData<ParallelRegsType[]>;
-  eventsOverTime: ChartData<EventsOverTimeType[]>;
-  macroEventsOverTime: ChartData<EventsOverTimeType[]>;
-  sumOverTime: ChartData<SumOverTimeType[]>;
-  callsSuccessTime: ChartData<CallSuccessType[]>;
-  callsTerminatedTime: ChartData<CallTerminatedType[]>;
+  eventsHeatmapData: ChartData<HeatmapEventDataType[]>;
+  parallelCallsData: ChartData<ParallelCallsType[]>;
+  parallelRegsData: ChartData<ParallelRegsType[]>;
+  eventsOverTimeData: ChartData<EventsOverTimeType[]>;
+  macroTypesData: ChartData<EventsOverTimeType[]>;
+  sumDurationData: ChartData<SumOverTimeType[]>;
+  callsSuccessData: ChartData<CallSuccessType[]>;
+  callsTerminatedData: ChartData<CallTerminatedType[]>;
 
   refreshData: () => void;
   selectedFilter: DataFilterType;
@@ -79,111 +83,110 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [selectedFilter, setSelectedFilter] =
     useState<DataFilterType>(initialFilter);
 
-  const [heatmap, setHeatmap] = useState<ChartData<HeatmapEventDataType[]>>({
+  const [eventsHeatmapData, setEventsHeatmapData] = useState<
+    ChartData<HeatmapEventDataType[]>
+  >({
     data: [],
   });
 
   const [loading, setIsLoading] = useState<boolean>(false);
 
-  const [parallelCalls, setParallelCalls] = useState<
+  const [parallelCallsData, setParallelCallsData] = useState<
     ChartData<ParallelCallsType[]>
   >({
     data: [],
   });
 
-  const [parallelRegs, setParallelRegs] = useState<
+  const [parallelRegsData, setParallelRegsData] = useState<
     ChartData<ParallelRegsType[]>
   >({
     data: [],
   });
 
-  const [eventsOverTime, setEventsOverTime] = useState<
+  const [eventsOverTimeData, setEventsOverTimeData] = useState<
     ChartData<EventsOverTimeType[]>
   >({
     data: [],
   });
 
-  const [sumOverTime, setSumOverTime] = useState<ChartData<SumOverTimeType[]>>({
-    data: sumOverTimeData.data,
+  const [sumDurationData, setSumDurationData] = useState<
+    ChartData<SumOverTimeType[]>
+  >({
+    data: [],
   });
 
-  const [callSuccessData, setCallSuccessData] = useState<
+  const [callsSuccessData, setCallSuccessData] = useState<
     ChartData<CallSuccessType[]>
   >({
     data: [],
   });
 
-  const [callTerminatedData, setCallsTerminatedData] = useState<
+  const [callsTerminatedData, setCallsTerminatedData] = useState<
     ChartData<CallTerminatedType[]>
   >({
     data: [],
   });
-  const [macroEventsOverTime, setMacroEventsOverTime] = useState<
+  const [macroTypesData, setMacroTypesData] = useState<
     ChartData<EventsOverTimeType[]>
   >({
     data: [],
   });
 
-  const getActiveEventTypes = (filter: DataFilterType): EventType[] => {
-    return Object.entries(filter.eventTypeFilter)
-      .filter(([_, isActive]) => isActive)
-      .map(([eventType, _]) => eventType as EventType);
-  };
-
-  const activeEvents = getActiveEventTypes(selectedFilter);
-
   const refreshData = useCallback(() => {
     setIsLoading(true);
-    const filteredHeatmap = filterDataByDate(
-      dateTypeHeapMap.data.map((element) => ({
+    const filteredHeatmap = filterData(
+      eventsHeatmapDummyData.data.map((element) => ({
         ...element,
         type: element.type as EventType,
       })),
       selectedFilter
     );
-    const filteredParallelCalls = filterDataByDate(
-      parallelCallsData.data.map((element) => ({
+    const filteredParallelCalls = filterData(
+      parallelCallsDummyData.data.map((element) => ({
         ...element,
         label: element.label as CallsType,
         type: element.type as EventType,
       })),
       selectedFilter
     );
-    const filteredParallelRegs = filterDataByDate(
-      parallelRegsData.data.map((element) => ({
+    const filteredParallelRegs = filterData(
+      parallelRegsDummyData.data.map((element) => ({
         ...element,
         label: element.label as RegsType,
         type: element.type as EventType,
       })),
       selectedFilter
     );
-    const filteredEventsOverTime = filterDataByDate(
-      eventsOverTimeData.data.map((element) => ({
+    const filteredEventsOverTime = filterData(
+      eventsOverTimeDummyData.data.map((element) => ({
         ...element,
         type: element.type as EventType,
       })),
       selectedFilter
     );
-    const filteredMacroEventsOverTime = filterDataByDate(
-      dummyMacroEventsOverTimeData.data.map((element) => ({
+    const filteredMacroEventsOverTime = filterData(
+      macroTypesDummyData.data.map((element) => ({
         ...element,
         type: element.type as EventType,
       })),
       selectedFilter
     );
-    const filteredSumOverTime = filterDataByDate(
-      sumOverTimeData.data,
-      selectedFilter
-    );
-    const filteredCallsSuccess = filterDataByDate(
-      dummyCallsSuccessData.data.map((element) => ({
+    const filteredSumOverTime = filterData(
+      sumDurationDummyData.data.map((element) => ({
         ...element,
         type: element.type as EventType,
       })),
       selectedFilter
     );
-    const filteredCallsTerminated = filterDataByDate(
-      dummyCallsTerminatedData.data.map((element) => ({
+    const filteredCallsSuccess = filterData(
+      callsSuccessDummyData.data.map((element) => ({
+        ...element,
+        type: element.type as EventType,
+      })),
+      selectedFilter
+    );
+    const filteredCallsTerminated = filterData(
+      callsTerminatedDummyData.data.map((element) => ({
         ...element,
         message: element.message as CallTerminatedEventType,
         type: element.type as EventType,
@@ -191,21 +194,16 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       selectedFilter
     );
 
-    setEventsOverTime({ data: filteredEventsOverTime });
-    setHeatmap({
+    setEventsOverTimeData({ data: filteredEventsOverTime });
+    setEventsHeatmapData({
       data: filteredHeatmap,
     });
-    setParallelCalls({ data: filteredParallelCalls });
-    setParallelRegs({ data: filteredParallelRegs });
-    setSumOverTime({ data: filteredSumOverTime });
+    setParallelCallsData({ data: filteredParallelCalls });
+    setParallelRegsData({ data: filteredParallelRegs });
+    setSumDurationData({ data: filteredSumOverTime });
     setCallSuccessData({ data: filteredCallsSuccess });
     setCallsTerminatedData({ data: filteredCallsTerminated });
-    setMacroEventsOverTime({ data: filteredMacroEventsOverTime });
-
-    if (activeEvents.length > 0)
-      setHeatmap({
-        data: filterByEventType(filteredHeatmap, activeEvents),
-      });
+    setMacroTypesData({ data: filteredMacroEventsOverTime });
 
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
@@ -224,15 +222,15 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     <DataContext.Provider
       value={{
         loading,
-        heatmap,
+        eventsHeatmapData,
         refreshData,
-        parallelCalls,
-        parallelRegs,
-        eventsOverTime,
-        sumOverTime,
-        callsSuccessTime: callSuccessData,
-        callsTerminatedTime: callTerminatedData,
-        macroEventsOverTime,
+        parallelCallsData,
+        parallelRegsData,
+        eventsOverTimeData,
+        sumDurationData,
+        callsSuccessData,
+        callsTerminatedData,
+        macroTypesData,
         selectedFilter,
         setSelectedFilter,
       }}

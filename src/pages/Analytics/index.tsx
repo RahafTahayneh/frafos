@@ -6,21 +6,21 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import Card from "../../components/Card";
 
 export const Analytics = () => {
-  const { macroEventsOverTime, selectedFilter, loading } = useDataStore();
+  const { macroTypesData, selectedFilter, loading } = useDataStore();
 
   useEffect(() => {
-    if (macroEventsOverTime.data.length > 0) {
+    if (macroTypesData.data.length > 0) {
       renderMacroEventsTypesData(
-        macroEventsOverTime.data,
+        macroTypesData.data,
         selectedFilter.dateFilter
       );
     }
-  }, [macroEventsOverTime.data, selectedFilter]);
+  }, [macroTypesData.data, selectedFilter]);
   useEffect(() => {
     const handleResize = () => {
-      if (macroEventsOverTime.data.length > 0) {
+      if (macroTypesData.data.length > 0) {
         renderMacroEventsTypesData(
-          macroEventsOverTime.data,
+          macroTypesData.data,
           selectedFilter.dateFilter
         );
       }
@@ -29,7 +29,7 @@ export const Analytics = () => {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [macroEventsOverTime.data, selectedFilter.dateFilter]);
+  }, [macroTypesData.data, selectedFilter.dateFilter]);
 
   return (
     <div className="page-call">
@@ -42,7 +42,7 @@ export const Analytics = () => {
       <div className="cards-container">
         <Wrapper
           title="Types"
-          isNoData={macroEventsOverTime.data.length === 0}
+          isNoData={macroTypesData.data.length === 0}
           loading={loading}
         >
           <div id="tooltip-macro-types" className="tooltip"></div>

@@ -134,17 +134,30 @@ export function renderHeatmap(
     .style("text-anchor", "middle")
     .text("Event Data Type");
 
-  data.forEach((d) => {
+  data.forEach((d, index) => {
     if (d.count > 0) {
-      g.append("rect")
-        .attr("x", timeScale(new Date(d.key_as_string)) - x.bandwidth() / 2)
+      const rectWidth = x.bandwidth() - 50;
+      const rectHeight = y.bandwidth() * 0.8;
+
+      const rect = g
+        .append("rect")
+        .attr("x", timeScale(new Date(d.key_as_string)) - rectWidth / 2)
         .attr("y", y(d.type) || 0)
-        .attr("width", 16)
-        .attr("height", 20)
+        .attr("width", rectWidth)
+        .attr("height", rectHeight)
         .attr("fill", color(d.count))
         .attr("rx", 4)
         .attr("ry", 4)
-        .on("mouseover", function (event) {
+        .attr("opacity", 0);
+
+      rect
+        .transition()
+        .duration(750)
+        .delay(index * 50)
+        .attr("opacity", 1);
+
+      rect
+        .on("mouseover", function (event: MouseEvent) {
           const tooltip = d3.select("#tooltip");
           const xPosition = event.pageX + 10;
           const yPosition = event.pageY + 10;

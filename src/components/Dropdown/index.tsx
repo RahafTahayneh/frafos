@@ -16,9 +16,12 @@ const Dropdown: React.FC<DropdownProps> = ({ options, label, onSelect }) => {
   };
 
   return (
-    <div className="icon-wrapper dropdown-wrapper">
+    <div
+      className="icon-wrapper dropdown-wrapper"
+      onClick={() => setIsOpen(!isOpen)}
+    >
       <BiCalendar size={18} />
-      <div className="selected-option" onClick={() => setIsOpen(!isOpen)}>
+      <div className="selected-option">
         <span>{label}</span>
         {isOpen ? (
           <MdKeyboardArrowUp size={18} />

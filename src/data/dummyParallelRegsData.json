@@ -5,8 +5,8 @@
       "key": 1696695345000,
       "r_count": 0,
       "label": "regs",
-      "type": "call-attempt",
-      "count": 0
+      "type": "reg_dell",
+      "count": 2
     },
     {
       "key_as_string": "2023-10-07T18:45:15.042Z",
@@ -21,7 +21,7 @@
       "key": 1696704958056,
       "r_count": 0,
       "label": "regs-1d",
-      "type": "call-attempt",
+      "type": "alert",
       "count": 0
     },
     {
@@ -29,7 +29,7 @@
       "key": 1696784112032,
       "r_count": 0,
       "label": "regs-1d",
-      "type": "call-attempt",
+      "type": "reg_dell",
       "count": 0
     },
     {

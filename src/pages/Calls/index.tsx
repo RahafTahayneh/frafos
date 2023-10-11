@@ -10,59 +10,62 @@ import Card from "../../components/Card";
 
 export const Calls = () => {
   const {
-    eventsOverTime,
-    sumOverTime,
-    callsSuccessTime,
-    callsTerminatedTime,
+    eventsOverTimeData,
+    sumDurationData,
+    callsSuccessData,
+    callsTerminatedData,
     selectedFilter,
   } = useDataStore();
 
   useEffect(() => {
-    if (eventsOverTime.data.length > 0) {
-      renderEventsOverTimeGraph(eventsOverTime.data, selectedFilter.dateFilter);
+    if (eventsOverTimeData.data.length > 0) {
+      renderEventsOverTimeGraph(
+        eventsOverTimeData.data,
+        selectedFilter.dateFilter
+      );
     }
 
-    if (sumOverTime.data.length > 0) {
-      renderSumOverTimeData(sumOverTime.data, selectedFilter.dateFilter);
+    if (sumDurationData.data.length > 0) {
+      renderSumOverTimeData(sumDurationData.data, selectedFilter.dateFilter);
     }
-    if (callsSuccessTime.data.length > 0) {
-      renderCallsSuccessData(callsSuccessTime.data, selectedFilter.dateFilter);
+    if (callsSuccessData.data.length > 0) {
+      renderCallsSuccessData(callsSuccessData.data, selectedFilter.dateFilter);
     }
-    if (callsTerminatedTime.data.length > 0) {
+    if (callsTerminatedData.data.length > 0) {
       renderCallsTerminatedData(
-        callsTerminatedTime.data,
+        callsTerminatedData.data,
         selectedFilter.dateFilter
       );
     }
   }, [
-    callsSuccessTime.data,
-    callsTerminatedTime.data,
-    eventsOverTime.data,
+    callsSuccessData.data,
+    callsTerminatedData.data,
+    eventsOverTimeData.data,
     selectedFilter,
-    sumOverTime.data,
+    sumDurationData.data,
   ]);
 
   useEffect(() => {
     const handleResize = () => {
-      if (eventsOverTime.data.length > 0) {
+      if (eventsOverTimeData.data.length > 0) {
         renderEventsOverTimeGraph(
-          eventsOverTime.data,
+          eventsOverTimeData.data,
           selectedFilter.dateFilter
         );
       }
 
-      if (sumOverTime.data.length > 0) {
-        renderSumOverTimeData(sumOverTime.data, selectedFilter.dateFilter);
+      if (sumDurationData.data.length > 0) {
+        renderSumOverTimeData(sumDurationData.data, selectedFilter.dateFilter);
       }
-      if (callsSuccessTime.data.length > 0) {
+      if (callsSuccessData.data.length > 0) {
         renderCallsSuccessData(
-          callsSuccessTime.data,
+          callsSuccessData.data,
           selectedFilter.dateFilter
         );
       }
-      if (callsTerminatedTime.data.length > 0) {
+      if (callsTerminatedData.data.length > 0) {
         renderCallsTerminatedData(
-          callsTerminatedTime.data,
+          callsTerminatedData.data,
           selectedFilter.dateFilter
         );
       }
@@ -72,11 +75,11 @@ export const Calls = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, [
-    callsSuccessTime.data,
-    callsTerminatedTime.data,
-    eventsOverTime.data,
+    callsSuccessData.data,
+    callsTerminatedData.data,
+    eventsOverTimeData.data,
     selectedFilter.dateFilter,
-    sumOverTime.data,
+    sumDurationData.data,
   ]);
 
   return (
@@ -98,7 +101,7 @@ export const Calls = () => {
       <div className="row-data">
         <Wrapper
           title="Events Over Time"
-          isNoData={eventsOverTime.data.length === 0}
+          isNoData={eventsOverTimeData.data.length === 0}
         >
           <div id="tooltip-events-over-time" className="tooltip"></div>
           <svg width="100%" height="300" id="eventsOverTimeSVG"></svg>
@@ -107,7 +110,7 @@ export const Calls = () => {
       <div className="row-data">
         <Wrapper
           title="SUM DURATION OVER TIME"
-          isNoData={sumOverTime.data.length === 0}
+          isNoData={sumDurationData.data.length === 0}
         >
           <div id="tooltip-sum-over-time" className="tooltip"></div>
           <svg width="100%" height="300" id="sumOverTimeSVG"></svg>
@@ -128,7 +131,7 @@ export const Calls = () => {
         <div className="collapse-svg">
           <Wrapper
             title="CALLS SUCCESS RATIO"
-            isNoData={callsSuccessTime.data.length === 0}
+            isNoData={callsSuccessData.data.length === 0}
           >
             <div id="tooltip-calls-success" className="tooltip"></div>
             <svg width={"100%"} height="300" id="callsSuccessSvg"></svg>
@@ -140,7 +143,7 @@ export const Calls = () => {
         >
           <Wrapper
             title="CALLS TERMINATED RATIO"
-            isNoData={callsTerminatedTime.data.length === 0}
+            isNoData={callsTerminatedData.data.length === 0}
           >
             <div id="tooltip-calls-terminated" className="tooltip"></div>
             <svg width={"100%"} height="300" id="callsTerminatedSvg"></svg>

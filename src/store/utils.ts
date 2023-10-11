@@ -3,9 +3,16 @@ import {
   DateRangeFilterType,
 } from "../types/dateFilterTypes";
 import { DataFilterType } from "../types/dataFilterTypes";
+import { EventType } from "../types/eventType";
 
 type FilterableDataType = {
   key_as_string: string;
+};
+
+const getActiveEventTypes = (filter: DataFilterType): EventType[] => {
+  return Object.entries(filter.eventTypeFilter)
+    .filter(([_, isActive]) => isActive)
+    .map(([eventType, _]) => eventType as EventType);
 };
 
 const getStartDate = (filterType: DateRangeFilterType): Date => {
@@ -20,16 +27,22 @@ const getStartDate = (filterType: DateRangeFilterType): Date => {
 
   return new Date(now.getTime() - duration);
 };
-
-export const filterDataByDate = <T extends FilterableDataType>(
+export const filterData = <T extends FilterableDataType & { type: EventType }>(
   data: T[],
   selectedFilter: DataFilterType
 ): T[] => {
-  let filteredData = data;
-
   const startDate = getStartDate(selectedFilter.dateFilter);
-  filteredData = filteredData.filter(
-    (item) => new Date(item.key_as_string) >= startDate
-  );
-  return filteredData;
+  const activeEventTypes = getActiveEventTypes(selectedFilter);
+
+  return data.filter((item) => {
+    // Filter by date if dateFilter is set
+    const dateFilterResult = new Date(item.key_as_string) >= startDate;
+
+    // Filter by event type if any eventType is active
+    const eventTypeFilterResult =
+      activeEventTypes.length > 0 ? activeEventTypes.includes(item.type) : true; // If no event types are selected, return true to include all items
+
+    // Return the combined result of both filters
+    return dateFilterResult && eventTypeFilterResult;
+  });
 };

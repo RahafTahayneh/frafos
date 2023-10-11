@@ -3,12 +3,16 @@
     {
       "key_as_string": "2023-10-08T03:15:12.032Z",
       "key": 1696695345050,
-      "time": 287
+      "time": 287,
+      "type": "call-end",
+      "count": "3"
     },
     {
       "key_as_string": "2023-10-07T18:45:15.042Z",
       "key": 1696695345000,
-      "time": 40
+      "time": 40,
+      "type": "call-end",
+      "count": "5"
     }
   ]
 }

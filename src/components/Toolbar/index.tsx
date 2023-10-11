@@ -95,6 +95,10 @@ const Toolbar = () => {
 
   const onReset = () => {
     setCheckedOptions(defaultCheckedOptions);
+    setSelectedFilter({
+      dateFilter: selectedFilter.dateFilter,
+      eventTypeFilter: defaultCheckedOptions,
+    });
   };
 
   const appliedFilterCount = useMemo(() => {
@@ -165,7 +169,7 @@ const Toolbar = () => {
             </div>
           )}
         </div>
-        <div className="icon-wrapper">
+        <div className="icon-wrapper" onClick={openModal}>
           <FaRedo size={12} />
         </div>
         {isModalOpen && (

@@ -1,47 +1,62 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { Wrapper } from "../../components/Wrapper";
 import Card from "../../components/Card";
 import { useDataStore } from "../../store/DataContext";
-import { renderHeatmap } from "../../utils/getTypeDateHeatMapData";
-import { renderParallelCall } from "../../utils/renderParallelCalls";
-import { renderParallelRegs } from "../../utils/renderParallelRegs";
+import { renderHeatmap } from "../../utils/renderEventsHeatmap";
+import { renderUnifiedScatterplot } from "../../utils/renderConnectedScattlerplot";
 
 export const Home = () => {
-  const { heatmap, parallelCalls, parallelRegs, selectedFilter, loading } =
-    useDataStore();
+  const {
+    eventsHeatmapData,
+    parallelCallsData,
+    parallelRegsData,
+    selectedFilter,
+    loading,
+  } = useDataStore();
+
+  const renderChartsData = useCallback(() => {
+    if (eventsHeatmapData.data.length > 0) {
+      renderHeatmap(eventsHeatmapData.data, selectedFilter.dateFilter);
+    }
+    if (parallelCallsData.data.length > 0) {
+      renderUnifiedScatterplot(
+        parallelCallsData.data,
+        selectedFilter.dateFilter,
+        "parallel-calls",
+        "c_count"
+      );
+    }
+    if (parallelRegsData.data.length > 0) {
+      renderUnifiedScatterplot(
+        parallelRegsData.data,
+        selectedFilter.dateFilter,
+        "parallel-regs",
+        "r_count"
+      );
+    }
+  }, [
+    eventsHeatmapData.data,
+    parallelCallsData.data,
+    parallelRegsData.data,
+    selectedFilter.dateFilter,
+  ]);
 
   useEffect(() => {
     if (!loading) {
-      if (heatmap.data.length > 0) {
-        renderHeatmap(heatmap.data, selectedFilter.dateFilter);
-      }
-      if (parallelCalls.data.length > 0) {
-        renderParallelCall(parallelCalls.data, selectedFilter.dateFilter);
-      }
-      if (parallelRegs.data.length > 0) {
-        renderParallelRegs(parallelRegs.data, selectedFilter.dateFilter);
-      }
+      renderChartsData();
     }
-  }, [heatmap, loading, parallelCalls.data, parallelRegs.data, selectedFilter]);
+  }, [loading, renderChartsData]);
 
   useEffect(() => {
     const handleResize = () => {
-      if (heatmap.data.length > 0) {
-        renderHeatmap(heatmap.data, selectedFilter.dateFilter);
-      }
-      if (parallelCalls.data.length > 0) {
-        renderParallelCall(parallelCalls.data, selectedFilter.dateFilter);
-      }
-      if (parallelRegs.data.length > 0) {
-        renderParallelRegs(parallelRegs.data, selectedFilter.dateFilter);
-      }
+      renderChartsData();
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [heatmap, parallelCalls.data, parallelRegs.data, selectedFilter]);
+  }, [renderChartsData, selectedFilter]);
 
   return (
     <div className="page-home">
@@ -73,7 +88,7 @@ export const Home = () => {
         <Wrapper
           loading={loading}
           title="Type Date Heatmap"
-          isNoData={heatmap.data.length === 0}
+          isNoData={eventsHeatmapData.data.length === 0}
         >
           <div id="tooltip" className="tooltip">
             <div id="type"></div>
@@ -89,7 +104,7 @@ export const Home = () => {
           <Wrapper
             loading={loading}
             title="Parallel Calls"
-            isNoData={parallelRegs.data.length === 0}
+            isNoData={parallelCallsData.data.length === 0}
           >
             <div id="tooltip-parallel-calls" className="tooltip">
               <div id="type"></div>
@@ -110,9 +125,9 @@ export const Home = () => {
             <Wrapper
               loading={loading}
               title="Parallel Regs"
-              isNoData={heatmap.data.length === 0}
+              isNoData={parallelRegsData.data.length === 0}
             >
-              <div id="tooltip-parallel-calls" className="tooltip">
+              <div id="tooltip-parallel-regs" className="tooltip">
                 <div id="type"></div>
                 <div id="time"></div>
               </div>

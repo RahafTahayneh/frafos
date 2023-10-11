@@ -1,15 +1,23 @@
 import * as d3 from "d3";
-import { ParallelCallsType } from "../types";
 import { DateRangeFilterType } from "../types/dateFilterTypes";
+import { ParallelCallsType, ParallelRegsType } from "../types";
 
-export function renderParallelCall(
-  data: ParallelCallsType[],
-  selectedFilter: DateRangeFilterType
+type DataItemType = ParallelCallsType | ParallelRegsType;
+
+function isParallelCallsType(data: DataItemType): data is ParallelCallsType {
+  return (data as ParallelCallsType).c_count !== undefined;
+}
+
+export function renderUnifiedScatterplot(
+  data: DataItemType[],
+  selectedFilter: DateRangeFilterType,
+  scatterPlotId: string,
+  countField: "c_count" | "r_count"
 ) {
-  const svgElement = document.getElementById("parallel-calls");
+  const svgElement = document.getElementById(scatterPlotId);
   if (!svgElement || !(svgElement instanceof SVGSVGElement)) {
     throw new Error(
-      "The element with id 'parallel-calls' is not an SVG element or does not exist."
+      `The element with id '${scatterPlotId}' is not an SVG element or does not exist.`
     );
   }
   const svg = d3.select(svgElement);
@@ -68,7 +76,10 @@ export function renderParallelCall(
   const idealPixelSpacing = 100;
   const numberOfTicks = Math.floor(width / idealPixelSpacing);
 
-  const maxCount = d3.max(data, (d) => d.c_count);
+  const maxCount = d3.max(data, (d) =>
+    isParallelCallsType(d) ? d.c_count : d.r_count
+  );
+
   const y = d3
     .scaleLinear()
     .domain([0, maxCount || 5])
@@ -77,16 +88,14 @@ export function renderParallelCall(
   const x = d3.scaleTime().domain([minDate, maxDate]).range([0, width]);
 
   const line = d3
-    .line<ParallelCallsType>()
+    .line<DataItemType>()
     .x((d) => x(new Date(d.key_as_string)))
-    .y((d) => y(d.c_count));
+    .y((d) => y(isParallelCallsType(d) ? d.c_count : d.r_count));
 
-  const color = d3.scaleOrdinal(d3.schemeSet2);
-
-  svg
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`)
-    .call(d3.axisLeft(y).tickValues([1, 2, 3, 4, 5]));
+  const color =
+    scatterPlotId === "parallel-calls"
+      ? d3.scaleOrdinal(d3.schemeSet2)
+      : d3.scaleOrdinal(["rgb(165, 202, 71)", "rgb(202, 165, 71)"]);
 
   svg
     .append("g")
@@ -101,27 +110,42 @@ export function renderParallelCall(
   const nestedData = d3.group(data, (d) => d.label);
 
   nestedData.forEach((values, label) => {
-    svg
-      .append("path")
-      .datum(values)
-      .attr("class", label)
-      .attr("fill", "none")
-      .attr("stroke", color(label))
-      .attr("stroke-width", 1.5)
-      .attr("d", line)
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+    const path: d3.Selection<SVGPathElement, DataItemType[], null, undefined> =
+      svg
+        .append("path")
+        .datum(values)
+        .attr("class", label)
+        .attr("fill", "none")
+        .attr("stroke", color(label))
+        .attr("stroke-width", 1.5)
+        .attr("d", line)
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+    const totalLength = (path.node() as any).getTotalLength();
+
+    path
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength);
+
+    path
+      .transition()
+      .duration(2000) // Set the duration as you see fit
+      .attr("stroke-dashoffset", 0);
 
     values.forEach((entry) => {
+      const countValue = isParallelCallsType(entry)
+        ? entry.c_count
+        : entry.r_count;
+
       svg
         .append("circle")
         .attr("class", label)
         .attr("cx", x(new Date(entry.key_as_string)))
-        .attr("cy", y(entry.c_count))
-        .attr("r", 5)
+        .attr("cy", y(countValue))
+        .attr("r", 0)
         .attr("fill", color(label))
         .attr("transform", `translate(${margin.left},${margin.top})`)
         .on("mouseover", function (event, d) {
-          const tooltip = d3.select("#tooltip-parallel-calls");
+          const tooltip = d3.select("#tooltip-" + scatterPlotId);
           const formattedTime = d3.timeFormat("%d %b %H:%M")(
             new Date(entry.key_as_string)
           );
@@ -129,14 +153,17 @@ export function renderParallelCall(
           tooltip.style("visibility", "visible");
           tooltip
             .select("#type")
-            .html(`<b>Type:</b>  ${entry.c_count}  ${entry.label}`);
+            .html(`<b>Type:</b>  ${countValue}  ${entry.label}`);
           tooltip.select("#time").html(`<b>Time:</b> ${formattedTime}`);
           tooltip.style("left", event.pageX + 10 + "px");
           tooltip.style("top", event.pageY + 10 + "px");
         })
         .on("mouseout", function () {
-          d3.select("#tooltip-parallel-calls").style("visibility", "hidden");
-        });
+          d3.select("#tooltip-" + scatterPlotId).style("visibility", "hidden");
+        })
+        .transition()
+        .duration(1000) // or any other value in ms
+        .attr("r", 5);
     });
   });
 
@@ -172,6 +199,6 @@ export function renderParallelCall(
       .style("fill", color(label))
       .style("font-size", "12px")
       .style("font-weight", "500")
-      .on("click", toggleVisibility);
+      .on("click", toggleVisibility); // Using the same click action for text
   });
 }
