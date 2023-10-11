@@ -99,7 +99,7 @@ export function renderHeatmap(
     .scaleBand()
     .domain(nonZeroEventTypes)
     .range([0, totalHeight - margin.top - margin.bottom])
-    .padding(0.1);
+    .padding(0.3); // Increase this value for more padding
 
   const maxCount = d3.max(data.map((d) => d.count)) || 1;
 
@@ -136,13 +136,21 @@ export function renderHeatmap(
 
   data.forEach((d, index) => {
     if (d.count > 0) {
-      const rectWidth = x.bandwidth() - 50;
+      const rectWidth = x.bandwidth() - 65;
       const rectHeight = y.bandwidth() * 0.8;
 
       const rect = g
         .append("rect")
-        .attr("x", timeScale(new Date(d.key_as_string)) - rectWidth / 2)
-        .attr("y", y(d.type) || 0)
+        .attr("x", (_) =>
+          Math.max(
+            0,
+            Math.min(
+              timeScale(new Date(d.key_as_string)) - rectWidth / 2,
+              width - rectWidth
+            )
+          )
+        )
+        .attr("y", (_) => Math.max(0, y(d.type) || 0))
         .attr("width", rectWidth)
         .attr("height", rectHeight)
         .attr("fill", color(d.count))
@@ -152,7 +160,7 @@ export function renderHeatmap(
 
       rect
         .transition()
-        .duration(750)
+        .duration(120)
         .delay(index * 50)
         .attr("opacity", 1);
 
@@ -180,4 +188,5 @@ export function renderHeatmap(
         });
     }
   });
+  g.append("g");
 }

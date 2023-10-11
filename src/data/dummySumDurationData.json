@@ -13,6 +13,13 @@
       "time": 40,
       "type": "call-end",
       "count": "5"
+    },
+    {
+      "key_as_string": "2023-10-09T18:15:12.032Z",
+      "key": 1697795345050,
+      "time": 120,
+      "type": "call-attempt",
+      "count": 50
     }
   ]
 }

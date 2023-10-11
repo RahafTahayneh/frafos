@@ -47,6 +47,55 @@
       "message": "ringing",
       "type": "call-end",
       "count": 0
+    },
+    {
+      "key_as_string": "2023-10-08T09:56:13.887Z",
+      "key": 1696758973887,
+      "type": "reg-del",
+      "c_count": 20,
+      "message": "ringing",
+      "count": 4
+    },
+    {
+      "key_as_string": "2023-10-06T13:01:07.588Z",
+      "key": 1696597267588,
+      "type": "call-attempt",
+      "count": 5,
+      "c_count": 30,
+      "message": "unauthorized"
+    },
+
+    {
+      "key_as_string": "2023-10-10T13:02:15.307Z",
+      "key": 1696424535307,
+      "type": "call-attempt",
+      "count": 2,
+      "message": "forbidden",
+      "c_count": 30
+    },
+    {
+      "key_as_string": "2023-10-10T14:02:15.307Z",
+      "key": 1696428135307,
+      "type": "call-end",
+      "count": 2,
+      "message": "user-failure",
+      "c_count": 5
+    },
+    {
+      "key_as_string": "2023-10-07T15:02:15.307Z",
+      "key": 1696428135307,
+      "type": "call-end",
+      "count": 2,
+      "c_count": 4,
+      "message": "error"
+    },
+    {
+      "key_as_string": "2023-10-06T11:32:15.307Z",
+      "key": 1696419135307,
+      "type": "call-attempt",
+      "count": 9,
+      "c_count": 102,
+      "message": "netfailure"
     }
   ]
 }

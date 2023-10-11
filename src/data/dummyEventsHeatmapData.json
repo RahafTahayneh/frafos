@@ -66,6 +66,127 @@
       "key": 1696521778020,
       "type": "conf-leave",
       "count": 2
+    },
+    {
+      "key_as_string": "2023-10-07T11:22:31.870Z",
+      "key": 1696677751870,
+      "type": "call-attempt",
+      "count": 6
+    },
+    {
+      "key_as_string": "2023-10-10T11:25:20.134Z",
+      "key": 1696937120134,
+      "type": "call-attempt",
+      "count": 5
+    },
+    {
+      "key_as_string": "2023-10-10T11:55:20.134Z",
+      "key": 1696938920134,
+      "type": "call-attempt",
+      "count": 2
+    },
+    {
+      "key_as_string": "2023-10-10T12:25:20.134Z",
+      "key": 1696940720134,
+      "type": "reg-del",
+      "count": 4
+    },
+    {
+      "key_as_string": "2023-10-10T12:55:20.134Z",
+      "key": 1696942520134,
+      "type": "call-start",
+      "count": 5
+    },
+    {
+      "key_as_string": "2023-10-07T11:26:13.887Z",
+      "key": 1696677973887,
+      "type": "call-end",
+      "count": 2
+    },
+    {
+      "key_as_string": "2023-10-07T11:56:13.887Z",
+      "key": 1696679773887,
+      "type": "alert",
+      "count": 5
+    },
+    {
+      "key_as_string": "2023-10-07T12:26:13.887Z",
+      "key": 1696681573887,
+      "type": "auth-failed",
+      "count": 3
+    },
+    {
+      "key_as_string": "2023-10-07T12:56:13.887Z",
+      "key": 1696683373887,
+      "type": "call-start",
+      "count": 7
+    },
+    {
+      "key_as_string": "2023-10-07T13:26:13.887Z",
+      "key": 1696685173887,
+      "type": "call-attempt",
+      "count": 8
+    },
+    {
+      "key_as_string": "2023-10-08T07:56:13.887Z",
+      "key": 1696751773887,
+      "type": "reg-new",
+      "count": 9
+    },
+    {
+      "key_as_string": "2023-10-08T08:26:13.887Z",
+      "key": 1696753573887,
+      "type": "call-end",
+      "count": 4
+    },
+    {
+      "key_as_string": "2023-10-08T08:56:13.887Z",
+      "key": 1696755373887,
+      "type": "call-attempt",
+      "count": 1
+    },
+    {
+      "key_as_string": "2023-10-08T09:26:13.887Z",
+      "key": 1696757173887,
+      "type": "call-attempt",
+      "count": 5
+    },
+    {
+      "key_as_string": "2023-10-08T09:56:13.887Z",
+      "key": 1696758973887,
+      "type": "reg-del",
+      "count": 4
+    },
+    {
+      "key_as_string": "2023-10-06T13:01:07.588Z",
+      "key": 1696597267588,
+      "type": "call-attempt",
+      "count": 5
+    },
+
+    {
+      "key_as_string": "2023-10-10T13:02:15.307Z",
+      "key": 1696424535307,
+      "type": "call-attempt",
+      "count": 2
+    },
+    {
+      "key_as_string": "2023-10-10T14:02:15.307Z",
+      "key": 1696428135307,
+      "type": "call-end",
+      "count": 2
+    },
+    {
+      "key_as_string": "2023-10-07T15:02:15.307Z",
+      "key": 1696428135307,
+      "type": "call-end",
+      "count": 2
+    },
+    {
+      "key_as_string": "2023-10-06T11:32:15.307Z",
+      "key": 1696419135307,
+      "type": "call-attempt",
+      "count": 9
     }
   ]
 }

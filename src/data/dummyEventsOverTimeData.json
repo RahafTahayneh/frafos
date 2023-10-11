@@ -10,7 +10,19 @@
       "key_as_string": "2023-10-08T09:15:12.032Z",
       "key": 1696695345050,
       "type": "call-attempt",
-      "count": 2
+      "count": 40
+    },
+    {
+      "key_as_string": "2023-10-10T12:25:20.134Z",
+      "key": 1696940720134,
+      "type": "call-start",
+      "count": 13
+    },
+    {
+      "key_as_string": "2023-10-10T12:55:20.134Z",
+      "key": 1696942520134,
+      "type": "call-attempt",
+      "count": 80
     },
     {
       "key_as_string": "2023-10-09T03:15:12.032Z",
@@ -29,6 +41,43 @@
       "key": 1696195345000,
       "type": "call-end",
       "count": 20
+    },
+    {
+      "key_as_string": "2023-10-08T09:56:13.887Z",
+      "key": 1696758973887,
+      "type": "reg-del",
+      "count": 4
+    },
+    {
+      "key_as_string": "2023-10-11T04:01:07.588Z",
+      "key": 1696597267588,
+      "type": "call-attempt",
+      "count": 100
+    },
+
+    {
+      "key_as_string": "2023-10-06T20:02:15.307Z",
+      "key": 1696424535307,
+      "type": "call-attempt",
+      "count": 50
+    },
+    {
+      "key_as_string": "2023-10-09T14:02:15.307Z",
+      "key": 1696428135307,
+      "type": "call-end",
+      "count": 20
+    },
+    {
+      "key_as_string": "2023-10-07T15:02:15.307Z",
+      "key": 1696428135307,
+      "type": "call-end",
+      "count": 2
+    },
+    {
+      "key_as_string": "2023-10-06T11:32:15.307Z",
+      "key": 1696419135307,
+      "type": "call-attempt",
+      "count": 9
     }
   ]
 }
